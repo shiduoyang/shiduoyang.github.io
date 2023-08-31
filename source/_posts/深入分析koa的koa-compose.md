@@ -1,9 +1,11 @@
 ---
 title: 深入分析koa的koa-compose
 date: 2023-08-31 12:25:21
-tags: Koa,Node.js
+tags:
+  - Koa
 comments: true
-categories: Node.js
+categories: 
+  - Koa
 ---
 #### 一：简介
 koa-compose 是koa用来合并中间件的工具，并且在中间件内部，原各个中间件的执行过程为洋葱式的。

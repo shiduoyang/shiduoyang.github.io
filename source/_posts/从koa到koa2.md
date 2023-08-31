@@ -3,10 +3,8 @@ title: 从koa到koa2
 date: 2023-08-31 15:39:49
 tags: 
   - Koa
-  - Koa2
 categories: 
   - Koa
-  - Koa2
 ---
 
 ## 一： Koa2简介及与Koa1的区别

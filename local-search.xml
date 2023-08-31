@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>从koa到koa2</title>
+    <link href="/2023/08/31/%E4%BB%8Ekoa%E5%88%B0koa2/"/>
+    <url>/2023/08/31/%E4%BB%8Ekoa%E5%88%B0koa2/</url>
+    
+    <content type="html"><![CDATA[<h2 id="一：-Koa2简介及与Koa1的区别"><a href="#一：-Koa2简介及与Koa1的区别" class="headerlink" title="一： Koa2简介及与Koa1的区别"></a>一： Koa2简介及与Koa1的区别</h2><p>Koa2是Koa1框架的升级版本，目前已经是koa的默认版本；<br>相较于Koa1，Koa2引入了一些重要的变化和改进。以下是Koa2相对于Koa1的一些区别：</p><ol><li>Koa 1 使用 Generator 函数来处理中间件和异步操作，而 Koa 2 直接支持 async&#x2F;await，让中间件的编写和理解更加简洁明了</li></ol><p>下面我们从使用的角度分别分析：</p><h2 id="二：Koa2的Async-Await支持"><a href="#二：Koa2的Async-Await支持" class="headerlink" title="二：Koa2的Async&#x2F;Await支持"></a>二：Koa2的Async&#x2F;Await支持</h2><p>现在我们使用koa1来实现一个中间件，该如何做呢？</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>);<br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">koa</span>();<br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> * (next) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Middleware 1: Before async operation&#x27;</span>);<br>  <span class="hljs-keyword">yield</span> <span class="hljs-title function_">someAsyncFunction</span>(); <span class="hljs-comment">// Yielding async operation</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Middleware 1: After async operation&#x27;</span>);<br>  <span class="hljs-keyword">yield</span> next;<br>&#125;);<br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> * () &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Middleware 2&#x27;</span>);<br>&#125;);<br><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>);<br><br></code></pre></td></tr></table></figure><p>koa2:</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Koa</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>);<br><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Koa</span>();<br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Middleware 1: Before async operation&#x27;</span>);<br>  <span class="hljs-keyword">await</span> <span class="hljs-title function_">xxxx</span>(); <span class="hljs-comment">// Await async operation</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Middleware 1: After async operation&#x27;</span>);<br>  <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>();<br>&#125;);<br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> (ctx) =&gt; &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Middleware 2&#x27;</span>);<br>&#125;);<br><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>);<br><br></code></pre></td></tr></table></figure><p>Koa2的中间件函数采用 async (ctx, next) &#x3D;&gt; {…}，而在 Koa1中是function * (next) {…}。Koa2直接支持Async&#x2F;Await，使得中间件的编写和理解更加简洁。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Koa</category>
+      
+      <category>Koa2</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Koa</tag>
+      
+      <tag>Koa2</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>深入分析koa的koa-compose</title>
     <link href="/2023/08/31/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90koa%E7%9A%84koa-compose/"/>
     <url>/2023/08/31/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90koa%E7%9A%84koa-compose/</url>
@@ -13,14 +42,14 @@
     
     <categories>
       
-      <category>Node.js</category>
+      <category>Koa</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>Koa,Node.js</tag>
+      <tag>Koa</tag>
       
     </tags>
     
@@ -38,14 +67,14 @@
     
     <categories>
       
-      <category>Node.js</category>
+      <category>Koa</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>Koa,Node.js</tag>
+      <tag>Koa</tag>
       
     </tags>
     

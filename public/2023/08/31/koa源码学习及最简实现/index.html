@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="杨士铎">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一：简介koa是基于nodejs平台的下一代web框架（官网描述）官网地址：https:&#x2F;&#x2F;koa.bootcss.com&#x2F;git地址：https:&#x2F;&#x2F;github.com&#x2F;koajs&#x2F;koa.gitkoa提供基于http服务的最简的框架模型，包括洋葱式的中间件处理逻辑、对请求和响应的封装等。 二：使用1234567891011const Koa &#x3D; require(&amp;#x27;koa&amp;#x27;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="koa源码学习及最简实现">
+<meta property="og:url" content="http://example.com/2023/08/31/koa%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E5%8F%8A%E6%9C%80%E7%AE%80%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一：简介koa是基于nodejs平台的下一代web框架（官网描述）官网地址：https:&#x2F;&#x2F;koa.bootcss.com&#x2F;git地址：https:&#x2F;&#x2F;github.com&#x2F;koajs&#x2F;koa.gitkoa提供基于http服务的最简的框架模型，包括洋葱式的中间件处理逻辑、对请求和响应的封装等。 二：使用1234567891011const Koa &#x3D; require(&amp;#x27;koa&amp;#x27;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-31T03:19:49.000Z">
+<meta property="article:modified_time" content="2023-08-31T03:43:55.041Z">
+<meta property="article:author" content="杨士铎">
+<meta property="article:tag" content="koa,node.js">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>koa源码学习及最简实现 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="koa源码学习及最简实现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-31 11:19" pubdate>
+          2023年8月31日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">koa源码学习及最简实现</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h4 id="一：简介"><a href="#一：简介" class="headerlink" title="一：简介"></a>一：简介</h4><p>koa是基于nodejs平台的下一代web框架（官网描述）<br>官网地址：<a target="_blank" rel="noopener" href="https://koa.bootcss.com/">https://koa.bootcss.com/</a><br>git地址：<a target="_blank" rel="noopener" href="https://github.com/koajs/koa.git">https://github.com/koajs/koa.git</a><br>koa提供基于http服务的最简的框架模型，包括洋葱式的中间件处理逻辑、对请求和响应的封装等。</p>
+<h4 id="二：使用"><a href="#二：使用" class="headerlink" title="二：使用"></a>二：使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Koa</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>);<br><br><span class="hljs-keyword">let</span> koa = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Koa</span>();<br><br>koa.<span class="hljs-title function_">use</span>(<span class="hljs-function">(<span class="hljs-params">ctx, next</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(ctx.<span class="hljs-property">request</span>.<span class="hljs-property">url</span>);<br>    ctx.<span class="hljs-property">body</span> = &#123; <span class="hljs-attr">code</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span> &#125;;<br>&#125;);<br><br>koa.<span class="hljs-title function_">listen</span>(<span class="hljs-number">5000</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;server listen 5000&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<h4 id="三：源码"><a href="#三：源码" class="headerlink" title="三：源码"></a>三：源码</h4><p>源码的lib下共四个文件：application.js，context.js，request.js，response.js</p>
+<h5 id="3-1-application-js"><a href="#3-1-application-js" class="headerlink" title="3.1 application.js"></a>3.1 application.js</h5><p>application.js是暴露给外部的入口，关键代码：</p>
+<h6 id="3-1-1-use"><a href="#3-1-1-use" class="headerlink" title="3.1.1 use"></a>3.1.1 use</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">use</span>(<span class="hljs-params">fn</span>) &#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&#x27;middleware must be a function!&#x27;</span>);<br>  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isGeneratorFunction</span>(fn)) &#123;<br>    <span class="hljs-title function_">deprecate</span>(<span class="hljs-string">&#x27;Support for generators will be removed in v3. &#x27;</span> +<br>              <span class="hljs-string">&#x27;See the documentation for examples of how to convert old middleware &#x27;</span> +<br>              <span class="hljs-string">&#x27;https://github.com/koajs/koa/blob/master/docs/migration.md&#x27;</span>);<br>    fn = <span class="hljs-title function_">convert</span>(fn);<br>  &#125;<br>  <span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;use %s&#x27;</span>, fn.<span class="hljs-property">_name</span> || fn.<span class="hljs-property">name</span> || <span class="hljs-string">&#x27;-&#x27;</span>);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">middleware</span>.<span class="hljs-title function_">push</span>(fn);<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>use方法接收中间件（即函数），并将其放入middleware数组中；<br>return this，用于支持use的链式调用；</p>
+<h6 id="3-1-2-listen"><a href="#3-1-2-listen" class="headerlink" title="3.1.2 listen"></a>3.1.2 listen</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">listen</span>(<span class="hljs-params">...args</span>) &#123;<br>  <span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;listen&#x27;</span>);<br>  <span class="hljs-keyword">const</span> server = http.<span class="hljs-title function_">createServer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">callback</span>());<br>  <span class="hljs-keyword">return</span> server.<span class="hljs-title function_">listen</span>(...args);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>koa提供的服务，本质上是nodejs的http模块提供的。koa定义了自己的callback函数用来接收请求和返回结果；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">callback</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> fn = <span class="hljs-title function_">compose</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">middleware</span>);<br><br>  <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">listenerCount</span>(<span class="hljs-string">&#x27;error&#x27;</span>)) <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">onerror</span>);<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleRequest</span> = (<span class="hljs-params">req, res</span>) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> ctx = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">createContext</span>(req, res);<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">handleRequest</span>(ctx, fn);<br>  &#125;;<br><br>  <span class="hljs-keyword">return</span> handleRequest;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>compose函数是koa-compose提供的，其作用是将多个中间件整理成一个中间件，在此中间件内部，原来的多个中间件的执行过程是洋葱式的；<br>createContext的作用是封装req,res为一个context对象，该对象经handleRequest函数传入每一个中间件；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">handleRequest</span>(<span class="hljs-params">ctx, fnMiddleware</span>) &#123;<br>  <span class="hljs-keyword">const</span> res = ctx.<span class="hljs-property">res</span>;<br>  res.<span class="hljs-property">statusCode</span> = <span class="hljs-number">404</span>;<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">onerror</span> = err =&gt; ctx.<span class="hljs-title function_">onerror</span>(err);<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleResponse</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title function_">respond</span>(ctx);<br>  <span class="hljs-title function_">onFinished</span>(res, onerror); <br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">fnMiddleware</span>(ctx).<span class="hljs-title function_">then</span>(handleResponse).<span class="hljs-title function_">catch</span>(onerror);<br>&#125;   <br></code></pre></td></tr></table></figure>
+<p>当所有中间件执行完毕，调用handleResponse函数，来返回结果</p>
+<h5 id="3-2-context-js"><a href="#3-2-context-js" class="headerlink" title="3.2 context.js"></a>3.2 context.js</h5><p>包含createContext的返回对象相关的一些方法</p>
+<h5 id="3-3-request-js"><a href="#3-3-request-js" class="headerlink" title="3.3 request.js"></a>3.3 request.js</h5><p>基于http.createServer中callback内的参数 req，封装了一些方法</p>
+<h5 id="3-4-response-js"><a href="#3-4-response-js" class="headerlink" title="3.4 response.js"></a>3.4 response.js</h5><p>基于http.createServer中callback内的参数 res，封装了一些方法</p>
+<h4 id="四：最简实现"><a href="#四：最简实现" class="headerlink" title="四：最简实现"></a>四：最简实现</h4><p>假设不考虑参数验错，req和res封装等，最简的类koa模型应该具备以下特征</p>
+<ul>
+<li>支持增加中间件</li>
+<li>中间件的执行流程为洋葱式</li>
+<li>context传入每个中间件，以实现中间件间的数据共享</li>
+<li>具备处理各种事件的能力，如error事件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Emitter</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;events&#x27;</span>);<br><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><span class="hljs-keyword">const</span> compose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa-compose&#x27;</span>);<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleKoa</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Emitter</span>&#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">super</span>();<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">middleware</span> = [];<br>    &#125;<br><br>    <span class="hljs-title function_">use</span>(<span class="hljs-params">fn</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">middleware</span>.<span class="hljs-title function_">push</span>(fn);<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>    &#125;<br><br>    <span class="hljs-title function_">listen</span>(<span class="hljs-params">...args</span>) &#123;<br>        <span class="hljs-keyword">const</span> server = http.<span class="hljs-title function_">createServer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">callback</span>());<br>        server.<span class="hljs-title function_">listen</span>(...args);<br>    &#125;<br><br>    <span class="hljs-title function_">callback</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">listenrCount</span>(<span class="hljs-string">&#x27;error&#x27;</span>)) <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(error));<br>        <span class="hljs-keyword">let</span> fn = <span class="hljs-title function_">compose</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">middleware</span>);<br>        <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleRequest</span> = (<span class="hljs-params">req, res</span>) =&gt; &#123;<br>            <span class="hljs-keyword">let</span> ctx = &#123;<br>                req,<br>                res<br>            &#125;;<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">handleRequest</span>(ctx, fn);<br>        &#125;<br>        <span class="hljs-keyword">return</span> handleRequest;<br>    &#125;<br><br>    <span class="hljs-title function_">handleRequest</span>(<span class="hljs-params">ctx, fnMiddleware</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">fnMiddleware</span>(ctx);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/koa-node-js/" class="print-no-link">#koa,node.js</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>koa源码学习及最简实现</div>
+      <div>http://example.com/2023/08/31/koa源码学习及最简实现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>杨士铎</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/31/test-new-post/" title="test-new-post">
+                        <span class="hidden-mobile">test-new-post</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

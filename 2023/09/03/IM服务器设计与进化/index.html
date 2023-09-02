@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="杨士铎">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一：概述IM：instant messaging ，中文翻译”即时通讯“，干啥的呢？就是我发个消息，你即时的就能看见。那么IM消息的整个系统都有哪些东西呢？  客户端。用来发送玩家的消息给服务器，接收并显示群内玩家的消息； 服务端。用来接收并处理玩家的消息，以及给某玩家推送消息有人问客户端自己能不能干这事？不能，因为我想给老王发个消息，但老王在哪我是不知道的，因为老王和我没有连接，所以只好找个中间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IM服务器设计与进化">
+<meta property="og:url" content="https://shiduoyang.github.io/2023/09/03/IM%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%BF%9B%E5%8C%96/index.html">
+<meta property="og:site_name" content="shiduoyang.note">
+<meta property="og:description" content="一：概述IM：instant messaging ，中文翻译”即时通讯“，干啥的呢？就是我发个消息，你即时的就能看见。那么IM消息的整个系统都有哪些东西呢？  客户端。用来发送玩家的消息给服务器，接收并显示群内玩家的消息； 服务端。用来接收并处理玩家的消息，以及给某玩家推送消息有人问客户端自己能不能干这事？不能，因为我想给老王发个消息，但老王在哪我是不知道的，因为老王和我没有连接，所以只好找个中间">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-02T16:15:14.000Z">
+<meta property="article:modified_time" content="2023-09-02T16:19:00.658Z">
+<meta property="article:author" content="杨士铎">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>IM服务器设计与进化 - shiduoyang.note</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"shiduoyang.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"lydEqx2SYWzjMRxBRI6UvG0S-gzGzoHsz","app_key":"KNYV438xarpZu03kePXysxhu","server_url":"https://lydeqx2s.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>shiduoyang</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="IM服务器设计与进化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-03 00:15" pubdate>
+          2023年9月3日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">IM服务器设计与进化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>IM：instant messaging ，中文翻译”即时通讯“，干啥的呢？就是我发个消息，你即时的就能看见。<br>那么IM消息的整个系统都有哪些东西呢？</p>
+<ol>
+<li>客户端。用来发送玩家的消息给服务器，接收并显示群内玩家的消息；</li>
+<li>服务端。用来接收并处理玩家的消息，以及给某玩家推送消息<br>有人问客户端自己能不能干这事？不能，因为我想给老王发个消息，但老王在哪我是不知道的，因为老王和我没有连接，所以只好找个中间商，中间商就固定在某个位置，我俩分别于中间商连接，那我俩也就可以连接了。</li>
+</ol>
+<h2 id="二：仅支持单聊的IM消息服务器，IM服务器1-0版"><a href="#二：仅支持单聊的IM消息服务器，IM服务器1-0版" class="headerlink" title="二：仅支持单聊的IM消息服务器，IM服务器1.0版"></a>二：仅支持单聊的IM消息服务器，IM服务器1.0版</h2><p>还是我和老王，我俩都连接了服务器这个中间商，我俩想通个话，怎么整呢？</p>
+<ol>
+<li>首先，我与服务器建立了连接，这个连接有一个唯一的标识，</li>
+<li>然后，老王也与服务器建立了连接，这个连接也有一个唯一的标识</li>
+<li>我想向老王发送一条消息：“吃了吗？”</li>
+<li>那么我先向IM消息服务器发一条消息，说我想向老王发条消息。</li>
+<li>IM服务器接收到了这条消息，它看看在线的人里面有没有老王，发现有，然后把消息发送给老王，然后告诉我发送成功。</li>
+<li>老王接收到这条消息，我本地在服务器告诉我成功之后，也显示了这条消息。</li>
+</ol>
+<p>上边是通俗的讲法，下面是技术的讲法</p>
+<ol>
+<li>我与im服务器建立长连接，如通过socketio建立了长连接 s1，登录信息与长连接的关系保存到服务器，如&lt;playerId1: s1&gt;</li>
+<li>老王与im服务器建立长连接，如通过socketio建立了长连接 s2，登录信息与长连接的关系保存到服务器，如&lt;playerId2: s2&gt;</li>
+<li>我发言，本质上是客户端通过s1，向服务器发送消息：<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">sendMessage:</span> &#123;playerId = playerId2, message = <span class="hljs-string">&quot;吃了吗&quot;</span>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>IM服务器接收到之后，在缓存中找有没有playerId2，如有，通过playerId2找到s2, 然后通过s2将message发送给playerId2, 同时将此信息发送给playerId1一份。</li>
+<li>双方收到服务器推送的消息，分别展示这条消息</li>
+</ol>
+<p>如此设计，一个简单的单聊IM服务器，就成型了。</p>
+<p>那么它有什么问题？</p>
+<ol>
+<li>只能单聊，群聊暂不支持。我想8个人一起聊，不能实现。</li>
+<li>如果有人掉线了，发向此人的消息他接收不到，那人重新上线，也无法看到，简单来说这条消息丢了。</li>
+</ol>
+<h2 id="三：支持群聊和消息历史的IM服务器，IM消息服务器2-0版"><a href="#三：支持群聊和消息历史的IM服务器，IM消息服务器2-0版" class="headerlink" title="三：支持群聊和消息历史的IM服务器，IM消息服务器2.0版"></a>三：支持群聊和消息历史的IM服务器，IM消息服务器2.0版</h2><p>1.0版本解决只能单聊和消息丢失的问题，那么如何解决？</p>
+<p>通俗来讲：</p>
+<ol>
+<li>通过发言前建立群组，把想群聊的这些人的信息归于一处，来支持群聊，这样就能知道你的发言应该发给谁谁谁</li>
+<li>通过把发言备份到一个可靠的地方，作为历史发言记录，解决消息丢失的问题</li>
+</ol>
+<p>下面是技术的讲法</p>
+<ol>
+<li>playerId1,playerId2,playerId3分别于im服务器通过socketio建立了长连接 s1,s2,s3</li>
+<li>playerid1想组建个群聊，成员分别是playerid1,playerId2,playerId3，因此向IM服务器发送组建群聊请求</li>
+<li>IM收到该请求，创建个群组的数据group: {playerIds:[playerId1,playerId2,playerId3]},然后告知playerId1成功，并且通知到playerId2和playerId3这个组建群聊成功</li>
+<li>playerId1,2,3接收到组建群聊成功消息后，在UI界面展示群组信息</li>
+<li>playerId1发言：”干啥去”，playerId 向IM发送向某群聊发送消息请求</li>
+<li>IM收到该请求，查找到该群聊，查找到群聊中的playerid1,2,3，然后分别向playerId1,2,3发送此条消息，并且存储此条群聊的消息到数据库（如redis,mongodb）</li>
+<li>playerId1,2,3接收到IM的消息推送后，在各自的UI中展示这条消息</li>
+</ol>
+<p>如果playerId3 断线之后，playerId2说了句“去吃饭”呢？</p>
+<ol>
+<li>客户端保存有群聊最大的消息序号x，与im服务器建立长连接后，先问IM服务器询问目前最新的消息序号y，如x&lt;y，说明客户端存着的消息是滞后的，因此通过请求IM服务器的方式拿到x之后的群聊消息，并及时更新自己的最大消息序号到y</li>
+</ol>
+<p>看起来目前的版本已经支持了群聊，也解决了消息丢失问题。那么它还有什么问题？</p>
+<ol>
+<li>当同时发言的人数多的时候，这台服务器会处理不过来，表现为消息发出去以后老半天不见动静</li>
+</ol>
+<h2 id="四，理论上支持无限人聊天的IM服务器，IM服务器3-0版"><a href="#四，理论上支持无限人聊天的IM服务器，IM服务器3-0版" class="headerlink" title="四，理论上支持无限人聊天的IM服务器，IM服务器3.0版"></a>四，理论上支持无限人聊天的IM服务器，IM服务器3.0版</h2><p>2.0版本的单台服务器在人多时的性能问题，该如何解决？<br>答曰，分布式。分布式也就是多服务的意思，这些服务可能在一个服务器，也可能在多个服务器，这种方式理论上能近乎无限的提升服务的性能，但他会带来一些挑战：</p>
+<ol>
+<li>群聊里的人可能来自不同的服务器，因此消息发送将更复杂</li>
+<li>当多人近乎同时发送消息时，需要保证群聊里的所有人完整，准确，顺序相同的拿到这些人的发言。不能顺序不一样，更不能缺失。</li>
+</ol>
+<p>那么服务器该如何设计呢？<br>通俗来讲：</p>
+<ol>
+<li>客户端创建的群组信息，要所有服务器都能看到，且都能获取，并且群组信息里除了要有用户的ID之外，还得有他在哪台服务器，这样才能找到这个用户在哪</li>
+<li>用户上线时，需要更新一下群组信息，说明我目前连的是这台服务器</li>
+<li>对于来自同一个群组内同时发言的这些请求，不管它有多少，整个服务器部分同时只处理一个</li>
+</ol>
+<p>下面是技术的讲法</p>
+<ol>
+<li>playerId1,playerId2,playerId3分别于im服务器A,B,C 通过socketio建立了长连接 s1,s2,s3</li>
+<li>playerId1,2,3,分别更新自己在数据库中的数据，使server&#x3D;A&#x2F;B&#x2F;C</li>
+<li>playerid1想组建个群聊，成员分别是playerid1,playerId2,playerId3，因此向IM服务器发送组建群聊请求</li>
+<li>IM收到该请求，查找数据库，找到playerId1,2,3的数据，拿到各自的server，并创建群组的数据<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">group: &#123;players:[<br>  &#123;id:playerId1,server:A,socket:s1&#125;,<br>  &#123;id:playerId2,server:B,socket:s2&#125;,<br>  &#123;id:playerId3,server:C,socket:s3&#125;,<br>]&#125;,<br></code></pre></td></tr></table></figure>
+然后告知playerId1成功，并且通知发送消息给B和C，中的playerId2和playerId3这个组建群聊成功</li>
+<li>IM的全局kafka消费者实例，订阅群聊的topic : “群聊ID”，xxxxx.subscribe(‘xxxx’);</li>
+<li>playerId1,2,3接收到组建群聊成功消息后，在UI界面展示群组信息</li>
+<li>playerId1发言：”干啥去”，playerId 向IM发送向某群聊发送消息请求</li>
+<li>IM接收到kafka的消息后，取出群聊消息，查找到该群聊，查找到群聊中的playerid1,2,3，拿到各自的server，然后向playerId1,2,3发送此条消息，并且存储此条群聊的消息到数据库（如redis,mongodb）</li>
+<li>playerId1,2,3接收到IM的消息推送后，在各自的UI中展示这条消息</li>
+</ol>
+<p>对于多个服务来说，各服务的在线状态需要同步，如果当前的流量较大，还需要动态的新增服务，简单来说服务需要管理。kubernetes集群是个可行的方案。</p>
+<p>看起来目前的版本已经支持了分布式的服务，那么它还有什么问题？</p>
+<ol>
+<li>逻辑更复杂，客户端连接与消息处理的逻辑耦合在一起，IM服务器的代码将更加复杂，系统的可维护性降低</li>
+<li>可测试性下降，单元测试和集成测试可能需要启动整个im服务器来进行</li>
+<li>耦合性强，难以将消息的处理部分抽离出来，用于其他功能或服务</li>
+<li>代码维护困难，很好理解，越复杂，就越难维护。</li>
+</ol>
+<h2 id="五，架构更优的IM服务器，IM服务器4-0版"><a href="#五，架构更优的IM服务器，IM服务器4-0版" class="headerlink" title="五，架构更优的IM服务器，IM服务器4.0版"></a>五，架构更优的IM服务器，IM服务器4.0版</h2><p>3.0版本的高耦合问题，该如何解决？</p>
+<p>通俗来讲：</p>
+<ol>
+<li>将IM服务器的管理客户端连接，群组管理，发送消息的功能；与对消息的处理功能，分开，各自干各自的事情</li>
+</ol>
+<p>下面是技术的讲法：</p>
+<ol>
+<li>新建若干消息消费者服务器，这些服务器用于消息处理</li>
+<li>IM服务器只负责管理与客户端的连接，群组管理，向客户端发送消息，以及接收来自消费者服务器的消息</li>
+</ol>
+<p>当玩家创建群组时：</p>
+<ol>
+<li>playerId1,playerId2,playerId3分别于im服务器A,B,C 通过socketio建立了长连接 s1,s2,s3</li>
+<li>playerId1,2,3,分别更新自己在全局redis集群中的数据，即playerId1的server&#x3D;A，</li>
+<li>playerid1想组建个群聊，成员分别是playerid1,playerId2,playerId3，因此向IM服务器发送组建群聊请求</li>
+<li>IM收到该请求，查找数据库（redis），找到playerId1,2,3的server，并创建群组的数据，并保存到数据库（如redis）<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-attribute">group</span>: &#123;<span class="hljs-attribute">players</span>:[<br>  &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">playerId1</span>&#125;,<br>  &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">playerId2</span>&#125;,<br>  &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">playerId3</span>&#125;,<br>]&#125;,<br></code></pre></td></tr></table></figure>
+然后告知playerId1成功，并且通知发送消息给B和C，中的playerId2和playerId3这个组建群聊成功</li>
+<li>IM通知消息服务，消息服务接到通知后开始subscribe 此topic, topic名字是群组的ID</li>
+<li>playerId1,2,3接收到组建群聊成功消息后，在UI界面展示群组信息</li>
+</ol>
+<p>当玩家发言时：</p>
+<ol>
+<li>playerId1发言：”干啥去”，playerId 向IM发送向某群聊发送消息请求</li>
+<li>IM接收到请求，验证playerId1的身份，将消息存入数据库，并向kafka发送一条消息。topic为群聊ID<br>3.消息消费者拿到来自kafka的消息后，取出群聊的消息，在redis中找到该群聊，取出其中的playerId, 然后从全局redis中找到playerId对应的server，然后给对应的IM服务器发送消息，类似如{server:A,playerId:’playerId1’,”message”:”干啥去”}</li>
+<li>IM服务器接收到来自消息消费者的消息后，验证是否连接有playerId, 如果有，通过socketio向该用户发消息</li>
+<li>playerId1,2,3接收到IM的消息推送后，在各自的UI中展示这条消息</li>
+</ol>
+<p>目前的架构，有如下特征：</p>
+<ol>
+<li>IM服务可以是任意多个，负责处理连接，管理群组，发送消息</li>
+<li>消息消费者服务可以是任意多个，负责处理消息，形成明确的消息发送指令，并给到IM服务</li>
+<li>kafka作为中间件存在，负责异步转同步，流量削峰</li>
+<li>IM和消息消费者服务职责明确，有利于维护</li>
+</ol>
+<p>看起来似乎不错了，那么它还有哪些问题？</p>
+<ol>
+<li>鉴权，不是什么人都能发消息，因此需要增加鉴权</li>
+<li>全局的redis来储存用户所在的server信息，一旦redis挂了，所有人都不能聊天了，因此可以考虑redis与mongodb结合，缓存+DB的形式，这将增加开发的复杂度</li>
+<li>消息发从到kafka这段如果失败，就会消息丢失，需要设计个类似接收回执的逻辑</li>
+</ol>
+<p>但主体的架构已经完成，总体来说是个还不错的IM服务器架构。</p>
+<p>这里先空着，我将给出架构图：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> empty <br></code></pre></td></tr></table></figure>
+
+<h2 id="六：下一代IM服务器的方向在哪里"><a href="#六：下一代IM服务器的方向在哪里" class="headerlink" title="六：下一代IM服务器的方向在哪里"></a>六：下一代IM服务器的方向在哪里</h2><p>本着大胆想象的原则，让我们畅想一下下一代的IM服务器。<br>但我这里还没有具体的答案，但大概有一些关键词，如AI，去中心化和边缘计算，有待思考和讨论</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>IM服务器设计与进化</div>
+      <div>https://shiduoyang.github.io/2023/09/03/IM服务器设计与进化/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>杨士铎</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/01/%E5%AE%B9%E5%99%A8%E5%92%8C%E5%AE%B9%E5%99%A8%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E8%BF%B0/" title="容器和容器化技术概述">
+                        <span class="hidden-mobile">容器和容器化技术概述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'shiduoyang/comments-uttrance');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

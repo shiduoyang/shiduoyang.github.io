@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>mysql索引结构及失效情景汇总</title>
+    <link href="/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/"/>
+    <url>/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/</url>
+    
+    <content type="html"><![CDATA[<h2 id="一：mysql的索引结构"><a href="#一：mysql的索引结构" class="headerlink" title="一：mysql的索引结构"></a>一：mysql的索引结构</h2><p>mysql是一个关系型数据库；<br>mysql的存储引擎最主要的有两个，一个是myisam，一个是innodb，下面我们分别来说明二者的索引结构</p><ol><li>myisam<ul><li>myisam的索引，结构是B+树，叶子节点保存的是数据记录的地址，也就是说它的索引和数据是分开的，叫非聚簇索引。</li><li>myisam的主键索引和非主键索引本质上没有区别，叶子节点都保存的是数据记录的地址</li></ul></li><li>innodb<ul><li>innodb的索引，结构是带有数据访问指针的B+树</li><li>主键索引的叶子结点，保存的是数据记录本身；非主键索引的叶子节点，保存的是主键值</li><li>由于innodb的索引，其索引和数据是在一起的，因此被称为聚簇索引</li><li>为提升读取性能，innodb的叶子节点在磁盘中是一个数据页<br>需要注意的是，不管是那种引擎，其索引文件都存储在磁盘上。<br>由于mysql的默认引擎是innodb，所以接下来我们的讨论都基于innodb引擎。</li></ul></li></ol><h2 id="二：B-树的增删改查"><a href="#二：B-树的增删改查" class="headerlink" title="二：B+树的增删改查"></a>二：B+树的增删改查</h2><p>B+树从B树演变而来，与B树的区别是B+树的非叶子节点只保存导航信息，所有数据都保存在叶子结点；<br>下面是一颗深度为4的三阶B+树</p><p><img src="/pic/bjiatree.jpg" alt="b+tree"></p><p>解释:</p><ul><li>每个节点最多有3个子节点，因此叫做3阶</li><li>根节点+非叶节点+叶节点，共4层，因此深度为4</li><li>每个非叶子节点，其节点上都存有</li></ul><p>增删改查要点</p><ul><li>B+树的增，需保持B+树的阶，一旦某节点的子节点数量超过3，需要分裂该节点，并查看父节点是否也有相同的问题。</li><li>B+树的删，同样需保持B+树的阶，B+树的子节点，不得小于m&#x2F;2，小于之后需要合并节点</li><li>B+树的改，不存在节点结构的变化</li><li>B+树的查，时间复杂度为log(n)有以下几种情况：</li></ul><h2 id="三：innodb的查找策略"><a href="#三：innodb的查找策略" class="headerlink" title="三：innodb的查找策略"></a>三：innodb的查找策略</h2><ol><li>主键查询, 查询主键索引即可</li><li>查询用到了非主键索引（也叫辅助索引，二级索引），且所需返回的字段在索引中就有，这时只需要查找辅助索引</li><li>查询用到了非主键索引，如联合索引，所需返回的字段在索引中不全，这时候需要查询主键索引（也叫回表查询）</li><li>如压根没用到索引，需要全表扫描</li></ol><h2 id="四：innodb的索引失效场景"><a href="#四：innodb的索引失效场景" class="headerlink" title="四：innodb的索引失效场景"></a>四：innodb的索引失效场景</h2><ol><li>联合索引不满足最左前缀匹配原则</li><li>索引列参与计算，包括使用了一些函数</li><li>like %在最左边</li><li>类型隐式转换，如在varchar类型的字段上，查找时写int型的值</li><li>使用or操作</li><li>一些比较  &lt;  &gt; !&#x3D; ; isnot null ;not in ; not exists</li></ol><h2 id="五：优化项"><a href="#五：优化项" class="headerlink" title="五：优化项"></a>五：优化项</h2><ol><li>尽量避免使用select * ,而使用select 具体的字段，以期望走覆盖索引</li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>IM服务器设计与进化</title>
     <link href="/2023/09/03/IM%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%BF%9B%E5%8C%96/"/>
     <url>/2023/09/03/IM%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%BF%9B%E5%8C%96/</url>
@@ -27,8 +40,6 @@
     <categories>
       
       <category>Docker</category>
-      
-      <category>Kubernetes</category>
       
     </categories>
     

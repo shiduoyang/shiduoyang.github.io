@@ -4,11 +4,36 @@
   
   
   <entry>
+    <title>mysql索引建立指导规则及慢查询分析</title>
+    <link href="/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/"/>
+    <url>/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>之前的文章中提到过mysql innodb的索引结构，这篇文章探讨mysql的索引建立规则，即慢查询。</p><h2 id="二：索引建立规则"><a href="#二：索引建立规则" class="headerlink" title="二：索引建立规则"></a>二：索引建立规则</h2><ol><li>满足最左前缀匹配原则。在建立索引时需考虑将来的应用场景，及可能的需求变化。</li><li>尽量选择区分度高的列作为索引。区分度 &#x3D; count(distinct col)  &#x2F; count(col) ，通俗来说就是相同的值比较少的列</li><li>尽量的扩展索引而非新建索引</li><li>索引尽量建立在小字段上，一些长的文本字段，不要建立索引</li></ol><h2 id="三：慢查询如何分析"><a href="#三：慢查询如何分析" class="headerlink" title="三：慢查询如何分析"></a>三：慢查询如何分析</h2><ol><li><p>explain 查看执行计划</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">explain <span class="hljs-keyword">select</span> * from xxx <span class="hljs-built_in">where</span> xxxx;<br></code></pre></td></tr></table></figure></li><li><p>开启慢查询日志</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global show_query_log = on; <span class="hljs-comment"># 这种是在交互式命令中的方式，如果数据库重启，这些就会失效，如果需要长期有效，需要修改mysql的配置文件</span><br>show variables like <span class="hljs-string">&#x27;%long%&#x27;</span>; <br><span class="hljs-built_in">set</span> long_query_time=0.02;// <span class="hljs-comment"># long_query_time是慢查询的临界值单位秒</span><br></code></pre></td></tr></table></figure><p> 慢查询日志的样子：<br> <img src="/pic/manchaxunrizhi.jpg" alt="慢查询日志"></p></li><li><p>开启性能详情</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">show variables like <span class="hljs-string">&#x27;%profiling%&#x27;</span><br><span class="hljs-built_in">set</span> profiling = on<br></code></pre></td></tr></table></figure></li></ol><h2 id="四：慢查询的常见原因"><a href="#四：慢查询的常见原因" class="headerlink" title="四：慢查询的常见原因"></a>四：慢查询的常见原因</h2><ol><li>没加索引&#x2F;没用索引导致全表扫描</li><li>单标数据量太大。这种情况看下索引设置的到底对不对，要么考虑分表</li><li>limit 深分页。比方说每页10条，去获取第十万页的数据。 如 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> xx <span class="hljs-keyword">where</span> click <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> id limit <span class="hljs-number">100000</span>,<span class="hljs-number">10</span>;<br></code></pre></td></tr></table></figure> 即使click加了索引，但因为二级索引的叶子结点保存的是主键的值，每条记录还需要回表查询才能知道是否需要丢弃，在该例子中，需要回表100010次，因此会很慢。<br> 这种情况下，需要考虑先查出主键ID，再根据主键查出所有字段 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <br>xxx t1,<br>(<span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> xxx <span class="hljs-keyword">where</span> click <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> id limit <span class="hljs-number">10000</span>,<span class="hljs-number">10</span>) t2<br><span class="hljs-keyword">where</span> t1.id <span class="hljs-operator">=</span> t2.id;<br></code></pre></td></tr></table></figure></li><li>排序不当，导致使用filesort查询<br> 如果  order by xxx 这个xxx不能由查询此sql使用的索引直接完成，mysql就有可能会进行filewort<ul><li>如查询的数量较少，没有超过系统变量sort_buffer_size的大小，会进行内存排序（快排）</li><li>如查询的数量较多，超过了该系统变量，会使用文件进行排序（归并）<br> 会使用filesort查询的场景</li></ul><ol><li>order by 用的字段，不是查询该sql使用到的索引。解决方案：排序字段加索引</li><li>俩排序字段，一个正序，一个倒序，解决方案：可分析需求，然后比方说加个字段，在新的字段上排序，</li></ol></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mysql索引结构及失效情景汇总</title>
     <link href="/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/"/>
     <url>/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/</url>
     
-    <content type="html"><![CDATA[<h2 id="一：mysql的索引结构"><a href="#一：mysql的索引结构" class="headerlink" title="一：mysql的索引结构"></a>一：mysql的索引结构</h2><p>mysql是一个关系型数据库；<br>mysql的存储引擎最主要的有两个，一个是myisam，一个是innodb，下面我们分别来说明二者的索引结构</p><ol><li>myisam<ul><li>myisam的索引，结构是B+树，叶子节点保存的是数据记录的地址，也就是说它的索引和数据是分开的，叫非聚簇索引。</li><li>myisam的主键索引和非主键索引本质上没有区别，叶子节点都保存的是数据记录的地址</li></ul></li><li>innodb<ul><li>innodb的索引，结构是带有数据访问指针的B+树</li><li>主键索引的叶子结点，保存的是数据记录本身；非主键索引的叶子节点，保存的是主键值</li><li>由于innodb的索引，其索引和数据是在一起的，因此被称为聚簇索引</li><li>为提升读取性能，innodb的各节点在磁盘中是一个数据页<ol><li>每个节点是一个磁盘页，这样方便读入内存</li><li>每当访问某磁盘页，将读取其相邻的磁盘页，这个操作叫做磁盘预读，因此其相邻的磁盘页也能很快的被访问到；<br> 一个直观的innodb索引例子：<br> <img src="/pic/innocbbjiatree.jpg" alt="innodbB+树索引"><br> 其中，一个浅蓝色的区域是一个磁盘页，深蓝色的是数据项，P1 P2 P3 是指针</li></ol></li></ul></li></ol><p>由于mysql的默认引擎是innodb，所以接下来我们的讨论都基于innodb引擎。</p><h2 id="二：B-树的增删改查"><a href="#二：B-树的增删改查" class="headerlink" title="二：B+树的增删改查"></a>二：B+树的增删改查</h2><p>B+树从B树演变而来，与B树的区别是B+树的非叶子节点只保存导航信息，所有数据都保存在叶子结点；<br>下面是一颗深度为4的三阶B+树</p><p><img src="/pic/bjiatree.jpg" alt="b+tree"></p><p>解释:</p><ul><li>每个节点最多有3个子节点，因此叫做3阶</li><li>根节点+非叶节点+叶节点，共4层，因此深度为4</li><li>每个非叶子节点，其节点上都存有</li></ul><p>增删改查要点</p><ul><li>B+树的增，需保持B+树的阶，一旦某节点的子节点数量超过3，需要分裂该节点，并查看父节点是否也有相同的问题。</li><li>B+树的删，同样需保持B+树的阶，B+树的子节点，不得小于m&#x2F;2，小于之后需要合并节点</li><li>B+树的改，不存在节点结构的变化</li><li>B+树的查，时间复杂度为log(n)有以下几种情况：</li></ul><h2 id="三：innodb的查找策略"><a href="#三：innodb的查找策略" class="headerlink" title="三：innodb的查找策略"></a>三：innodb的查找策略</h2><ol><li>主键查询, 查询主键索引即可</li><li>查询用到了非主键索引（也叫辅助索引，二级索引），且所需返回的字段在索引中就有，这时只需要查找辅助索引</li><li>查询用到了非主键索引，如联合索引，所需返回的字段在索引中不全，这时候需要查询主键索引（也叫回表查询）</li><li>如压根没用到索引，需要全表扫描</li></ol><h2 id="四：innodb的索引失效场景"><a href="#四：innodb的索引失效场景" class="headerlink" title="四：innodb的索引失效场景"></a>四：innodb的索引失效场景</h2><ol><li>联合索引不满足最左前缀匹配原则</li><li>索引列参与计算，包括使用了一些函数</li><li>like %在最左边</li><li>类型隐式转换，如在varchar类型的字段上，查找时写int型的值</li><li>使用or操作</li><li>一些比较  &lt;  &gt; !&#x3D; ; isnot null ;not in ; not exists</li></ol><h2 id="五：优化项"><a href="#五：优化项" class="headerlink" title="五：优化项"></a>五：优化项</h2><ol><li>尽量避免使用select * ,而使用select 具体的字段，以期望走覆盖索引</li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="一：mysql的索引结构"><a href="#一：mysql的索引结构" class="headerlink" title="一：mysql的索引结构"></a>一：mysql的索引结构</h2><p>mysql是一个关系型数据库；<br>mysql的存储引擎最主要的有两个，一个是myisam，一个是innodb，下面我们分别来说明二者的索引结构</p><ol><li><p>myisam</p><ul><li>myisam的索引，结构是B+树，叶子节点保存的是数据记录的地址，也就是说它的索引和数据是分开的，叫非聚簇索引。</li><li>myisam的主键索引和非主键索引本质上没有区别，叶子节点都保存的是数据记录的地址</li></ul></li><li><p>innodb</p><ul><li>innodb的索引，结构是带有数据访问指针的B+树</li><li>主键索引的叶子结点，保存的是数据记录本身；非主键索引的叶子节点，保存的是主键值</li><li>由于innodb的索引，其索引和数据是在一起的，因此被称为聚簇索引</li><li>为提升读取性能，innodb的各节点在磁盘中是一个数据页<ol><li>每个节点是一个磁盘页，这样方便读入内存</li><li>每当访问某磁盘页，将读取其相邻的磁盘页，这个操作叫做磁盘预读，因此其相邻的磁盘页也能很快的被访问到；</li></ol></li><li>由于非叶子结点不存数据，所以这颗B+树的阶非常高（即非叶子结点可以储存非常多的数据项），故数高很小，一个近百万数据的表，可能其数高只有3.</li></ul><p> 一个直观的innodb索引例子：<br> <img src="/pic/innocbbjiatree.jpg" alt="innodbB+树索引"><br> 其中，一个浅蓝色的区域是一个磁盘页，深蓝色的是数据项，P1 P2 P3 是指针</p></li></ol><p>由于mysql的默认引擎是innodb，所以接下来我们的讨论都基于innodb引擎。</p><h2 id="二：B-树的增删改查"><a href="#二：B-树的增删改查" class="headerlink" title="二：B+树的增删改查"></a>二：B+树的增删改查</h2><p>B+树从B树演变而来，与B树的区别是B+树的非叶子节点只保存导航信息，所有数据都保存在叶子结点；<br>下面是一颗深度为4的三阶B+树</p><p><img src="/pic/bjiatree.jpg" alt="b+tree"></p><p>解释:</p><ul><li>每个节点最多有3个子节点，因此叫做3阶</li><li>根节点+非叶节点+叶节点，共4层，因此深度为4</li><li>每个非叶子节点，其节点上都存有</li></ul><p>增删改查要点</p><ul><li>B+树的增，需保持B+树的阶，一旦某节点的子节点数量超过3，需要分裂该节点，并查看父节点是否也有相同的问题。</li><li>B+树的删，同样需保持B+树的阶，B+树的子节点，不得小于m&#x2F;2，小于之后需要合并节点</li><li>B+树的改，不存在节点结构的变化</li><li>B+树的查，时间复杂度为log(n)，具体过程是每次取出一个节点（即读入一个数据页），比较，确定下一步的查询指针，然后继续这个过程。</li></ul><h2 id="三：innodb的查找策略"><a href="#三：innodb的查找策略" class="headerlink" title="三：innodb的查找策略"></a>三：innodb的查找策略</h2><ol><li>主键查询, 查询主键索引即可</li><li>查询用到了非主键索引（也叫辅助索引，二级索引），且所需返回的字段在索引中就有，这时只需要查找辅助索引</li><li>查询用到了非主键索引，如联合索引，所需返回的字段在索引中不全，这时候需要查询主键索引（也叫回表查询）</li><li>如压根没用到索引，需要全表扫描</li></ol><h2 id="四：innodb的索引失效场景"><a href="#四：innodb的索引失效场景" class="headerlink" title="四：innodb的索引失效场景"></a>四：innodb的索引失效场景</h2><ol><li>联合索引不满足最左前缀匹配原则</li><li>索引列参与计算，包括使用了一些函数</li><li>like %在最左边</li><li>类型隐式转换，如在varchar类型的字段上，查找时写int型的值</li><li>使用or操作</li><li>一些比较  &lt;  &gt; !&#x3D; ; isnot null ;not in ; not exists</li></ol><h2 id="五：优化项"><a href="#五：优化项" class="headerlink" title="五：优化项"></a>五：优化项</h2><ol><li>尽量避免使用select * ,而使用select 具体的字段，以期望走覆盖索引</li></ol>]]></content>
     
     
     <categories>
@@ -115,9 +140,7 @@
     
     <categories>
       
-      <category>Koa</category>
-      
-      <category>Javascript</category>
+      <category>Koa, Javascript</category>
       
     </categories>
     

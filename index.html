@@ -253,6 +253,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/" target="_self">
+          mysql索引建立指导规则及慢查询分析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/" target="_self">
+        <div>
+          一：概述之前的文章中提到过mysql innodb的索引结构，这篇文章探讨mysql的索引建立规则，即慢查询。 二：索引建立规则 满足最左前缀匹配原则。在建立索引时需考虑将来的应用场景，及可能的需求变化。 尽量选择区分度高的列作为索引。区分度 &#x3D; count(distinct col)  &#x2F; count(col) ，通俗来说就是相同的值比较少的列 尽量的扩展索引而非新建索引 索
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-05 16:08" pubdate>
+              2023-09-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Mysql/" class="category-chain-item">Mysql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Mysql/">#Mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/" target="_self">
           mysql索引结构及失效情景汇总
         </a>
@@ -261,7 +322,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/" target="_self">
         <div>
-          一：mysql的索引结构mysql是一个关系型数据库；mysql的存储引擎最主要的有两个，一个是myisam，一个是innodb，下面我们分别来说明二者的索引结构  myisam myisam的索引，结构是B+树，叶子节点保存的是数据记录的地址，也就是说它的索引和数据是分开的，叫非聚簇索引。 myisam的主键索引和非主键索引本质上没有区别，叶子节点都保存的是数据记录的地址   innodb in
+          一：mysql的索引结构mysql是一个关系型数据库；mysql的存储引擎最主要的有两个，一个是myisam，一个是innodb，下面我们分别来说明二者的索引结构  myisam  myisam的索引，结构是B+树，叶子节点保存的是数据记录的地址，也就是说它的索引和数据是分开的，叫非聚簇索引。 myisam的主键索引和非主键索引本质上没有区别，叶子节点都保存的是数据记录的地址   innodb
         </div>
       </a>
 
@@ -531,15 +592,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Koa/" class="category-chain-item">Koa</a>
+  <a href="/categories/Koa-Javascript/" class="category-chain-item">Koa, Javascript</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Koa/Javascript/" class="category-chain-item">Javascript</a>
-  
-  
-
   
 
       </span>

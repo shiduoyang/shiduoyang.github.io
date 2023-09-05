@@ -2,6 +2,9 @@
 title: IM服务器设计与进化
 date: 2023-09-03 00:15:14
 tags:
+  - 系统设计
+categories:
+  - 系统设计
 ---
 ## 一：概述
 IM：instant messaging ，中文翻译”即时通讯“，干啥的呢？就是我发个消息，你即时的就能看见。

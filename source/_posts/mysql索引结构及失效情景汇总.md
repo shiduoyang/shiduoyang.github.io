@@ -2,6 +2,9 @@
 title: mysql索引结构及失效情景汇总
 date: 2023-09-04 10:34:17
 tags:
+    - Mysql
+categories:
+    - Mysql
 ---
 ## 一：mysql的索引结构
 

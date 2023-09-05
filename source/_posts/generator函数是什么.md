@@ -5,7 +5,7 @@ tags:
     - Koa
     - Javascript
 categories:
-    - Koa, Javascript
+    - Javascript
 ---
 
 ## 一 概述

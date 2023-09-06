@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>mysql innodb支持的隔离级别与mvcc</title>
+    <link href="/2023/09/06/mysql-innodb%E6%94%AF%E6%8C%81%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8Emvcc/"/>
+    <url>/2023/09/06/mysql-innodb%E6%94%AF%E6%8C%81%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8Emvcc/</url>
+    
+    <content type="html"><![CDATA[<h2 id="一：-概述"><a href="#一：-概述" class="headerlink" title="一： 概述"></a>一： 概述</h2><p>我们都知道，mysql的默认引擎是innodb引擎，之前也提到过了innodb的数据组织方式（聚集索引）与查询过程。<br>本文我们讨论另外一个问题：即innodb的事务</p><h2 id="二：事务及事务的隔离级别"><a href="#二：事务及事务的隔离级别" class="headerlink" title="二：事务及事务的隔离级别"></a>二：事务及事务的隔离级别</h2><h3 id="2-1-什么是事务"><a href="#2-1-什么是事务" class="headerlink" title="2.1 什么是事务"></a>2.1 什么是事务</h3><p>想象你去银行给老王转账1000，那么银行会怎么操作呢？简单来说第一步扣你的钱，第二步给老王加钱。<br>如果第一步扣完你的钱，第二步执行失败了怎么办？如果没有任何后续处理，你可能会骂娘。<br>那应该怎么整呢？如果失败，把你的钱得加回来，并告知你转账操作失败。<br>转账这件事，不管它有多少个步骤，我们把它作为一个整体来看待，要么整体都成功，要么整体都失败，不存在一部分成功，一部分失败。<br>这就叫事务。</p><h3 id="2-2-事务的特征"><a href="#2-2-事务的特征" class="headerlink" title="2.2 事务的特征"></a>2.2 事务的特征</h3><p>事务有什么特征呢?</p><ol><li>原子性：要么都成功，要么都失败</li><li>一致性：事务开始前，事务结束后，数据库的一致性不能被破坏。</li><li>隔离性：多个事务并发进行时，事务之间是隔离的，一个事务不能影响其他事务</li><li>持久性：改完了应该落盘，持久化保存</li></ol><h3 id="2-3-事物的隔离级别及"><a href="#2-3-事物的隔离级别及" class="headerlink" title="2.3 事物的隔离级别及"></a>2.3 事物的隔离级别及</h3><p>啥叫事务的隔离级别？通俗来说就是并发进行的事务，对彼此的影响程度，影响程度越大，隔离级别越低，反之越高；</p><ol><li>read uncommited 即读未提交，能读到其他事物未提交的数据</li><li>read commited 即读已提交，能读到其他事物已提交的数据</li><li>repeatable read 即可重复度，对于之前读到的数据，后续的每次读，这些数据的值都相同，但可能会读到新的行。</li><li>serializable 串行化，并行的其他事物对本事务完全没影响</li></ol><h3 id="三：innodb支持的事务隔离级别"><a href="#三：innodb支持的事务隔离级别" class="headerlink" title="三：innodb支持的事务隔离级别"></a>三：innodb支持的事务隔离级别</h3><p>innodb支持的隔离级别，来到了serializable<br>怎么做到的呢?</p><ol><li>MVCC：多版本并发控制，行数据有多个版本（快照），每个事务只能读取到事务创建之前的数据快照，并且仅本事务可见，对数据的操作保存在事务缓冲区中，提交以后落到磁盘上。</li><li>锁管理：innodb实现了表级锁，和行级锁。<ul><li>共享&#x2F;排他锁(Shared and Exclusive locks)，是行级锁</li><li>意向锁（Intent locks），是表级锁，意向锁有共享意向锁（IS锁）和排他意向锁（IX锁）</li><li>记录锁（Record locks）</li><li>间隙锁（Gap locks）：锁定一个记录之间的区间，以防止幻读和脏读的发生</li><li>临建锁（Next-key locks）：结合了记录锁和间隙锁的锁，锁定一个记录及其区间，以防止幻读和脏读的发生</li></ul></li><li>redolog：记录了每个事务读对数据库的修改操作，用于数据恢复</li><li>undolog：innodb通过回滚日志来回滚事务，回滚时逆序执行从而保证数据的一致性<br> 如操作时增加一行，那回滚日志中记录的应该是删除该行。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mysql</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mysql索引建立指导规则及慢查询分析</title>
     <link href="/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/"/>
     <url>/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/</url>

@@ -16,22 +16,22 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一：概述ES6 ES7 ES8的名称由来是啥？  ES6 就是 ES2015 ES7 就是 ES2016 ES8 就是 ES2017。。。  二：各版本的特性 ES6的新特性 let const 块作用域 箭头函数 for of  Map 和 Set class Promise 函数参数默认值 … String.includes startsWith endsWith Array.find fin">
+    <meta name="description" content="一：概述我们常常颂扬中国人的美好品德，但人无完人，民族也是如此。这本书就列举出了中国人的一些不足，读完之后我感觉振聋发聩，暗自告诫自己，在以后的生活中，需要常常自省。 二：笔记2.1 极端自傲与自卑，但缺乏自尊造成中国人两个极端，不够平衡。 一方面是绝对的自卑，一方面是绝对的自傲。自卑的时候成了奴才，自傲的时候成了主人，却独独没有自尊。这以至于中国人很难有平等观念，你不是我的主人，我就得是你的主人">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6-ES13">
-<meta property="og:url" content="https://shiduoyang.github.io/2023/09/07/ES6-ES13/index.html">
+<meta property="og:title" content="丑陋的中国人">
+<meta property="og:url" content="https://shiduoyang.github.io/2023/09/08/%E4%B8%91%E9%99%8B%E7%9A%84%E4%B8%AD%E5%9B%BD%E4%BA%BA/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="一：概述ES6 ES7 ES8的名称由来是啥？  ES6 就是 ES2015 ES7 就是 ES2016 ES8 就是 ES2017。。。  二：各版本的特性 ES6的新特性 let const 块作用域 箭头函数 for of  Map 和 Set class Promise 函数参数默认值 … String.includes startsWith endsWith Array.find fin">
+<meta property="og:description" content="一：概述我们常常颂扬中国人的美好品德，但人无完人，民族也是如此。这本书就列举出了中国人的一些不足，读完之后我感觉振聋发聩，暗自告诫自己，在以后的生活中，需要常常自省。 二：笔记2.1 极端自傲与自卑，但缺乏自尊造成中国人两个极端，不够平衡。 一方面是绝对的自卑，一方面是绝对的自傲。自卑的时候成了奴才，自傲的时候成了主人，却独独没有自尊。这以至于中国人很难有平等观念，你不是我的主人，我就得是你的主人">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-07T03:53:21.000Z">
-<meta property="article:modified_time" content="2023-09-07T03:55:29.588Z">
+<meta property="article:published_time" content="2023-09-08T05:44:08.000Z">
+<meta property="article:modified_time" content="2023-09-08T07:18:37.065Z">
 <meta property="article:author" content="杨士铎">
-<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="读书笔记">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>ES6-ES13 - shiduoyang.note</title>
+  <title>丑陋的中国人 - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ES6-ES13"></span>
+            <span id="subtitle" data-typed-text="丑陋的中国人"></span>
           
         </div>
 
@@ -237,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-07 11:53" pubdate>
-          2023年9月7日 中午
+        <time datetime="2023-09-08 13:44" pubdate>
+          2023年9月8日 下午
         </time>
       </span>
     
@@ -249,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          976 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
         
-          10 分钟
+          9 分钟
         
       </span>
     
@@ -305,83 +305,35 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">ES6-ES13</h1>
+            <h1 id="seo-header">丑陋的中国人</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>ES6 ES7 ES8的名称由来是啥？</p>
+                <h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>我们常常颂扬中国人的美好品德，但人无完人，民族也是如此。这本书就列举出了中国人的一些不足，读完之后我感觉振聋发聩，暗自告诫自己，在以后的生活中，需要常常自省。</p>
+<h2 id="二：笔记"><a href="#二：笔记" class="headerlink" title="二：笔记"></a>二：笔记</h2><h3 id="2-1-极端自傲与自卑，但缺乏自尊"><a href="#2-1-极端自傲与自卑，但缺乏自尊" class="headerlink" title="2.1 极端自傲与自卑，但缺乏自尊"></a>2.1 极端自傲与自卑，但缺乏自尊</h3><p>造成中国人两个极端，不够平衡。 一方面是绝对的自卑，一方面是绝对的自傲。自卑的时候成了奴才，自傲的时候成了主人，却独独没有自尊。<br>这以至于中国人很难有平等观念，你不是我的主人，我就得是你的主人。这种情景影响到个人心态的封闭。死不认错，但又不断有错，以致使中国人产生一种神经质的恐惧。</p>
+<h3 id="2-2-保护自己为第一，明哲保身"><a href="#2-2-保护自己为第一，明哲保身" class="headerlink" title="2.2 保护自己为第一，明哲保身"></a>2.2 保护自己为第一，明哲保身</h3><p>盖儒家在原则上只提倡个人主义而非集体主义。明哲保身，不入危墙。曰：危邦不入，乱邦不居，天下有道，则见，无道，则隐。邦有道，贫且贱，耻也；邦无道，富且贵焉，耻也。<br>都保护自己畏第一，明哲保身，也就有了：</p>
 <ul>
-<li>ES6 就是 ES2015</li>
-<li>ES7 就是 ES2016</li>
-<li>ES8 就是 ES2017<br>。。。</li>
+<li>不敢想也不敢讲；</li>
+<li>混日子；</li>
+<li>拳头大了就是对；不论对错，以拳头大小论对错</li>
+<li>出个冒尖的因为与自己的做法不符，会说他爱管闲事</li>
+<li>有敬有畏，但缺乏爱；对上敬畏，对下严厉，但缺乏平等的爱</li>
+<li>不太为别人着想；臭鞋扔门口，公共区域乱占，等等</li>
 </ul>
-<h2 id="二：各版本的特性"><a href="#二：各版本的特性" class="headerlink" title="二：各版本的特性"></a>二：各版本的特性</h2><ol>
-<li>ES6的新特性<ul>
-<li>let const 块作用域</li>
-<li>箭头函数</li>
-<li>for of </li>
-<li>Map 和 Set</li>
-<li>class</li>
-<li>Promise</li>
-<li>函数参数默认值</li>
-<li>…</li>
-<li>String.includes startsWith endsWith</li>
-<li>Array.find findIndex</li>
-<li>解构赋值</li>
-</ul>
-</li>
-<li>ES7的新特性<ul>
-<li>2 ** 3 &lt;&#x3D;&gt; Math.pow(2,3)</li>
-<li>Array.includes</li>
-</ul>
-</li>
-<li>ES8的新特性  ES2017<ul>
-<li>String 的 padStart  padEnd 长度补全  如：‘5’.padStart(4,0)&#x3D;&gt; ‘0005’</li>
-<li>Object.entries 来遍历对象 for(let [k,v] of Object.entries(obj))</li>
-<li>Object.values</li>
-<li>async await 函数</li>
-</ul>
-</li>
-<li>ES9的新特性<ul>
-<li>在循环中使用await for(){await xxxxx}</li>
-<li>Promise.finally</li>
-<li>对象剩余属性 允许把除了解构出的属性之外的剩余属性，放到一个新的对象中<br>  obj &#x3D; {a:1,b:2,c:3}; let {a,bc}&#x3D;obj &#x3D;&gt; a&#x3D;1 bc &#x3D;{b:2,c:3}</li>
-<li>对象扩展属性 允许把对象的所有属性拷贝到另一个对象中<br>  let c &#x3D; {…obj}</li>
-</ul>
-</li>
-<li>ES10的新特性<ul>
-<li>String.trimStart trimEnd ‘    123’.trimStart &#x3D; ‘123‘</li>
-<li>Object fromEntries     通过一个entries来创建对象</li>
-<li>catch(e){} 如无需访问e，可以改成 catch{…}</li>
-<li>Array flat 数组展平（降N维），默认降1维</li>
-<li>Array flatMap 数组展平 + map</li>
-<li>Array sort</li>
-</ul>
-</li>
-<li>ES11的新特性<ul>
-<li>BigInt</li>
-<li>String matchAll</li>
-<li>x &amp;&amp;&#x3D; y  当x 为真时，把Y赋给X</li>
-<li>x ||&#x3D; y  当x 为假时，把Y赋给X</li>
-<li>x ??&#x3D; y  当x 不存在时，把Y赋给X</li>
-<li>?? 空值运算符,前边为空的时候设置成后边的默认值  x&#x3D; a ?? 0 &lt;&#x3D;&gt; if(a!&#x3D;undefined){x&#x3D;a}else{x&#x3D;0} </li>
-<li>?.xxx   a.x  a存在时取值, 不存在时返回undefined</li>
-</ul>
-</li>
-<li>ES12的新特性<ul>
-<li>Promise.any</li>
-<li>String replaceAll</li>
-<li>Numeric Separators</li>
-<li>数字分割符  1_0000_0000 &#x3D; 100000000</li>
-</ul>
-</li>
-<li>ES13的新特性 即 ES2012<ul>
-<li>Array at</li>
-<li>String at</li>
-<li>await import<br> 等等</li>
-</ul>
-</li>
+<h3 id="2-3-合作精神不足"><a href="#2-3-合作精神不足" class="headerlink" title="2.3 合作精神不足"></a>2.3 合作精神不足</h3><p>三个人合作能有八个心眼</p>
+<h3 id="2-4-凡事我例外"><a href="#2-4-凡事我例外" class="headerlink" title="2.4 凡事我例外"></a>2.4 凡事我例外</h3><p>随地吐痰是不对的，看到了我就会上去批评，但我自己是可以吐一吐。<br>闯红灯是不对的，看到了我就会上去批评，但我自己是可以闯一闯。<br>诸如此类</p>
+<h3 id="2-5-崇洋媚外分不清"><a href="#2-5-崇洋媚外分不清" class="headerlink" title="2.5 崇洋媚外分不清"></a>2.5 崇洋媚外分不清</h3><p>崇洋经常被认为是媚外。把西方好的东西拿来，这叫崇洋；向外国人谄媚，巴结讨好，这叫媚外。媚外着实是该批评，但崇洋是为了中华民族的伟大复兴。</p>
+<h3 id="2-6-讲礼但不讲理"><a href="#2-6-讲礼但不讲理" class="headerlink" title="2.6 讲礼但不讲理"></a>2.6 讲礼但不讲理</h3><p>讲理会感觉丢面子，因此往往用逃避讨论的方式来对待，这样有了面子，但拒绝了讲理的过程。</p>
+<h2 id="三：读后心得"><a href="#三：读后心得" class="headerlink" title="三：读后心得"></a>三：读后心得</h2><p>书中林林总总说了许多内容，我细细体会与总结，认为造成中国人不足之处的有以下原因：</p>
+<ol>
+<li>2000年的封建帝制与动荡，造成了中国人自尊的缺失，也使得中国人更多关注家而非国</li>
+<li>儒家明哲保身的思想，禁锢了中国人的血性与灵性</li>
+</ol>
+<h2 id="三：何以促进中华民族的伟大复兴"><a href="#三：何以促进中华民族的伟大复兴" class="headerlink" title="三：何以促进中华民族的伟大复兴"></a>三：何以促进中华民族的伟大复兴</h2><ol>
+<li>虚心而非骄傲，骄傲使人自满，民族亦是如此。一个虚心的民族，一个具有包容性的民族，才能永葆青春与活力</li>
+<li>奋勇争先而非明哲保身。当今世界变化太快，逆水行舟，不进则退。唯有勇于进取，大胆创新，才能不被淘汰。</li>
+<li>合作共赢而非窝里斗。人力有时穷，国家也如此。一个人再厉害，凭他自己也仅能完成有限的工作。唯有习惯合作，善于合作，劲往一处使，才能完成更大的事业</li>
 </ol>
 
                 
@@ -401,7 +353,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Javascript/" class="category-chain-item">Javascript</a>
+  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
   
   
 
@@ -416,7 +368,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Javascript/" class="print-no-link">#Javascript</a>
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
       
     </div>
   
@@ -428,8 +380,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ES6-ES13</div>
-      <div>https://shiduoyang.github.io/2023/09/07/ES6-ES13/</div>
+      <div>丑陋的中国人</div>
+      <div>https://shiduoyang.github.io/2023/09/08/丑陋的中国人/</div>
     </div>
     <div class="license-meta">
       
@@ -441,7 +393,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月7日</div>
+          <div>2023年9月8日</div>
         </div>
       
       
@@ -473,9 +425,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/08/%E6%9B%BE%E5%9B%BD%E8%97%A9-%E5%8F%88%E7%AC%A8%E5%8F%88%E6%85%A2%E5%B9%B3%E5%A4%A9%E4%B8%8B/" title="曾国藩-又笨又慢平天下">
+                      <a href="/2023/09/08/%E9%80%9A%E7%94%A8%E5%9E%8B%E6%94%AF%E4%BB%98%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" title="通用型支付服务设计概述">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">曾国藩-又笨又慢平天下</span>
+                        <span class="hidden-mobile">通用型支付服务设计概述</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -483,8 +435,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/06/mysql-innodb%E6%94%AF%E6%8C%81%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8Emvcc/" title="mysql innodb支持的隔离级别与mvcc">
-                        <span class="hidden-mobile">mysql innodb支持的隔离级别与mvcc</span>
+                      <a href="/2023/09/08/%E6%9B%BE%E5%9B%BD%E8%97%A9-%E5%8F%88%E7%AC%A8%E5%8F%88%E6%85%A2%E5%B9%B3%E5%A4%A9%E4%B8%8B/" title="曾国藩-又笨又慢平天下">
+                        <span class="hidden-mobile">曾国藩-又笨又慢平天下</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,6 +4,81 @@
   
   
   <entry>
+    <title>通用型支付服务设计概述</title>
+    <link href="/2023/09/08/%E9%80%9A%E7%94%A8%E5%9E%8B%E6%94%AF%E4%BB%98%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/"/>
+    <url>/2023/09/08/%E9%80%9A%E7%94%A8%E5%9E%8B%E6%94%AF%E4%BB%98%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<p>日前应公司业务发展的要求，对支付逻辑进行了拆分，形成了独立支付服务。本文基于服务拆分的实践，探讨建立独立支付服务的思路。<br>文末的关键编码，为处理后的伪代码，与实际项目无关，特此声明。</p><h4 id="一：什么是独立支付服务"><a href="#一：什么是独立支付服务" class="headerlink" title="一：什么是独立支付服务"></a>一：什么是独立支付服务</h4><p>假设有三个不同的项目A,B,C，都需要接入支付宝H5支付功能。按照以往的开发模式，这三个项目需要分别开发一套与支付宝的对话逻辑，包括下单、支付回调、订单支付状态查询等。<br>假设这三个项目，现在要接入微信H5支付和微信JSAPI支付，那么同理，他们需要分别开发一套与微信方的对话逻辑。<br>如果还需要接入其他的支付方式呢？<br>独立支付服务可以理解为这些支付方式的代理，A,B,C在独立支付服务中注册它们的关键支付参数及商品，独立支付服务提供支付流程的保证和在关键的时间节点（订单创建、订单支付成功等）的通知。<br>有了独立支付服务，不管有多少个项目，大家都不需要关注与微信方等的对话逻辑，只需要关注必要的配置及少数几个通知就可以了。</p><h4 id="二：支付服务应包含哪些功能"><a href="#二：支付服务应包含哪些功能" class="headerlink" title="二：支付服务应包含哪些功能"></a>二：支付服务应包含哪些功能</h4><ul><li>客户管理。提供客户的注册、鉴权、关键支付信息（如微信appid）等的存储。</li><li>商品管理。客户创建商品、修改商品价格、设置各种通知接口。</li><li>支付服务。封装与实际支付服务提供者（微信、支付宝）的交互，提供统一的预下单接口，并在关键的时间节点通知客户。</li><li>查询服务。客户主动查询某订单的支付状态。</li></ul><h4 id="三：支付的整体流程是什么"><a href="#三：支付的整体流程是什么" class="headerlink" title="三：支付的整体流程是什么"></a>三：支付的整体流程是什么</h4><p>假设支付平台的服务器为S，客户的服务器为s，客户的前端（支付按钮所在的地方）为c。<br>假设客户A已经在支付平台注册了商品a，并设置当a创建订单和支付成功的时候，都要通知给s。<br>以支付宝H5支付为例。</p><h5 id="当用户点击支付按钮之后，支付流程应该是这样的："><a href="#当用户点击支付按钮之后，支付流程应该是这样的：" class="headerlink" title="当用户点击支付按钮之后，支付流程应该是这样的："></a>当用户点击支付按钮之后，支付流程应该是这样的：</h5><ul><li>c-&gt;S：用户要支付啦，选的是支付宝H5支付，商品是a，数量是1，用户的唯一标识是“15705420001” ，需要带给s那货的信息是”xxxxxx”;</li><li>S-&gt;c：我和支付宝方沟通过了，订单已创建，你的支付参数是*****，订单标识为12345;</li><li>S-&gt;s：有用户创建订单啦，用户是“15705420001”，商品是a，数量是1，你的客户端托我给你带的话是‘xxxxxx’，订单标识是12345；</li><li>c ：用支付参数一顿操作，唤起了支付，用户付款;</li><li>支付宝-&gt;S：订单12345支付成功啦；</li><li>S-&gt;s:  有用户支付订单啦，用户是“15705420001”，商品是a，数量是1，你的客户端托我给你带的话是‘xxxxxx’，订单标识是12345；</li><li>s：记录用户15705420001，买了1个商品a；</li></ul><h6 id="如果s不相信支付成功的通知呢？"><a href="#如果s不相信支付成功的通知呢？" class="headerlink" title="如果s不相信支付成功的通知呢？"></a>如果s不相信支付成功的通知呢？</h6><ul><li>s-&gt;S： 这个订单12345的，确实支付了吗？你去支付宝问问；</li><li>S-&gt;s：问过支付宝了，支付了；</li><li>s：记录用户15705420001，买了1个商品a；</li></ul><h5 id="c从支付宝的支付页面返回之后"><a href="#c从支付宝的支付页面返回之后" class="headerlink" title="c从支付宝的支付页面返回之后"></a>c从支付宝的支付页面返回之后</h5><ul><li>c-&gt;S：麻烦看下12345支付成功了吗；</li><li>S-&gt;c：问过支付宝了，支付了；</li><li>c：跳转支付成功页面；</li></ul><h4 id="四：关键编码"><a href="#四：关键编码" class="headerlink" title="四：关键编码"></a>四：关键编码</h4><p>笔者实践采用的是koa+mysql+redis技术栈，关键编码依然以支付宝h5支付为例。</p><h6 id="4-1：支付宝h5支付"><a href="#4-1：支付宝h5支付" class="headerlink" title="4.1：支付宝h5支付"></a>4.1：支付宝h5支付</h6><ul><li>获取支付参数时<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">   <span class="hljs-keyword">const</span> info = <span class="hljs-keyword">await</span> aliH5PayChannel.<span class="hljs-title function_">unifiedOrder</span>(goodsInfo);<br><span class="hljs-keyword">await</span> <span class="hljs-title function_">notifyOrderCreated</span>(goodsInfo, info);<br></code></pre></td></tr></table></figure></li><li>用户支付成功后</li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//支付结果通知逻辑</span><br><span class="hljs-keyword">await</span> <span class="hljs-title function_">notifyPaySuccess</span>(payOrder);<br></code></pre></td></tr></table></figure><ul><li>查询订单</li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (orderType == <span class="hljs-variable constant_">ORDERTYPE</span>.<span class="hljs-property">ALIH5PAY</span>) &#123;<br><span class="hljs-keyword">let</span> queryResult = <span class="hljs-keyword">await</span> aliH5PayChannel.<span class="hljs-title function_">queryOrder</span>(orderNo);<br>       <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>系统设计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>系统设计</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>丑陋的中国人</title>
+    <link href="/2023/09/08/%E4%B8%91%E9%99%8B%E7%9A%84%E4%B8%AD%E5%9B%BD%E4%BA%BA/"/>
+    <url>/2023/09/08/%E4%B8%91%E9%99%8B%E7%9A%84%E4%B8%AD%E5%9B%BD%E4%BA%BA/</url>
+    
+    <content type="html"><![CDATA[<h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>我们常常颂扬中国人的美好品德，但人无完人，民族也是如此。这本书就列举出了中国人的一些不足，读完之后我感觉振聋发聩，暗自告诫自己，在以后的生活中，需要常常自省。</p><h2 id="二：笔记"><a href="#二：笔记" class="headerlink" title="二：笔记"></a>二：笔记</h2><h3 id="2-1-极端自傲与自卑，但缺乏自尊"><a href="#2-1-极端自傲与自卑，但缺乏自尊" class="headerlink" title="2.1 极端自傲与自卑，但缺乏自尊"></a>2.1 极端自傲与自卑，但缺乏自尊</h3><p>造成中国人两个极端，不够平衡。 一方面是绝对的自卑，一方面是绝对的自傲。自卑的时候成了奴才，自傲的时候成了主人，却独独没有自尊。<br>这以至于中国人很难有平等观念，你不是我的主人，我就得是你的主人。这种情景影响到个人心态的封闭。死不认错，但又不断有错，以致使中国人产生一种神经质的恐惧。</p><h3 id="2-2-保护自己为第一，明哲保身"><a href="#2-2-保护自己为第一，明哲保身" class="headerlink" title="2.2 保护自己为第一，明哲保身"></a>2.2 保护自己为第一，明哲保身</h3><p>盖儒家在原则上只提倡个人主义而非集体主义。明哲保身，不入危墙。曰：危邦不入，乱邦不居，天下有道，则见，无道，则隐。邦有道，贫且贱，耻也；邦无道，富且贵焉，耻也。<br>都保护自己畏第一，明哲保身，也就有了：</p><ul><li>不敢想也不敢讲；</li><li>混日子；</li><li>拳头大了就是对；不论对错，以拳头大小论对错</li><li>出个冒尖的因为与自己的做法不符，会说他爱管闲事</li><li>有敬有畏，但缺乏爱；对上敬畏，对下严厉，但缺乏平等的爱</li><li>不太为别人着想；臭鞋扔门口，公共区域乱占，等等</li></ul><h3 id="2-3-合作精神不足"><a href="#2-3-合作精神不足" class="headerlink" title="2.3 合作精神不足"></a>2.3 合作精神不足</h3><p>三个人合作能有八个心眼</p><h3 id="2-4-凡事我例外"><a href="#2-4-凡事我例外" class="headerlink" title="2.4 凡事我例外"></a>2.4 凡事我例外</h3><p>随地吐痰是不对的，看到了我就会上去批评，但我自己是可以吐一吐。<br>闯红灯是不对的，看到了我就会上去批评，但我自己是可以闯一闯。<br>诸如此类</p><h3 id="2-5-崇洋媚外分不清"><a href="#2-5-崇洋媚外分不清" class="headerlink" title="2.5 崇洋媚外分不清"></a>2.5 崇洋媚外分不清</h3><p>崇洋经常被认为是媚外。把西方好的东西拿来，这叫崇洋；向外国人谄媚，巴结讨好，这叫媚外。媚外着实是该批评，但崇洋是为了中华民族的伟大复兴。</p><h3 id="2-6-讲礼但不讲理"><a href="#2-6-讲礼但不讲理" class="headerlink" title="2.6 讲礼但不讲理"></a>2.6 讲礼但不讲理</h3><p>讲理会感觉丢面子，因此往往用逃避讨论的方式来对待，这样有了面子，但拒绝了讲理的过程。</p><h2 id="三：读后心得"><a href="#三：读后心得" class="headerlink" title="三：读后心得"></a>三：读后心得</h2><p>书中林林总总说了许多内容，我细细体会与总结，认为造成中国人不足之处的有以下原因：</p><ol><li>2000年的封建帝制与动荡，造成了中国人自尊的缺失，也使得中国人更多关注家而非国</li><li>儒家明哲保身的思想，禁锢了中国人的血性与灵性</li></ol><h2 id="三：何以促进中华民族的伟大复兴"><a href="#三：何以促进中华民族的伟大复兴" class="headerlink" title="三：何以促进中华民族的伟大复兴"></a>三：何以促进中华民族的伟大复兴</h2><ol><li>虚心而非骄傲，骄傲使人自满，民族亦是如此。一个虚心的民族，一个具有包容性的民族，才能永葆青春与活力</li><li>奋勇争先而非明哲保身。当今世界变化太快，逆水行舟，不进则退。唯有勇于进取，大胆创新，才能不被淘汰。</li><li>合作共赢而非窝里斗。人力有时穷，国家也如此。一个人再厉害，凭他自己也仅能完成有限的工作。唯有习惯合作，善于合作，劲往一处使，才能完成更大的事业</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>读书笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>读书笔记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>曾国藩-又笨又慢平天下</title>
+    <link href="/2023/09/08/%E6%9B%BE%E5%9B%BD%E8%97%A9-%E5%8F%88%E7%AC%A8%E5%8F%88%E6%85%A2%E5%B9%B3%E5%A4%A9%E4%B8%8B/"/>
+    <url>/2023/09/08/%E6%9B%BE%E5%9B%BD%E8%97%A9-%E5%8F%88%E7%AC%A8%E5%8F%88%E6%85%A2%E5%B9%B3%E5%A4%A9%E4%B8%8B/</url>
+    
+    <content type="html"><![CDATA[<p>一：概述</p><p>曾国藩，是近代儒家文化的集大成者。</p><p>二：读后感</p><ol><li>勤奋，极度的勤奋是成功的基石</li><li>贵人的赏识是一生中难得的机遇</li><li>纵有万千才华，也要与同僚打成一片</li><li>失败，连续的失败是对心灵考验，通过了能获得极大的提升，通不过有可能因此丧命</li><li>舍小义成全大义</li><li>稳，稳扎稳打，稳中求胜，稳到没有破绽</li></ol><p>笨而极致的勤奋；慢却稳定的前进，是这本书对我最重要的教育。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>读书笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>读书笔记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ES6-ES13</title>
     <link href="/2023/09/07/ES6-ES13/"/>
     <url>/2023/09/07/ES6-ES13/</url>

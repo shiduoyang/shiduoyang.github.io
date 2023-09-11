@@ -2,6 +2,9 @@
 title: rabbitMQ概述
 date: 2023-09-11 17:30:38
 tags:
+    - RabbitMQ
+categories:
+    - RabbitMQ
 
 ---
 

@@ -16,22 +16,22 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一：概述RabbitMQ是一个开源的消息代理软件，用于实现高级消息队列协议（AMQP）和其他消息传递协议。它为应用程序提供了一种可靠、异步的消息传递机制，允许不同的组件之间进行通信。在本文中，我们将深入了解RabbitMQ，包括它的基本概念、使用方式以及其组成和架构。 rabbitMQ用来解耦应用程序组件，从而太高可伸缩性与可维护性。 二：使用RabbitMQ的使用方式非常简单，它基于以下几个核心">
+    <meta name="description" content="一 shell概述shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rabbitMQ概述">
-<meta property="og:url" content="https://shiduoyang.github.io/2023/09/11/rabbitMQ%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="shell命令概述">
+<meta property="og:url" content="https://shiduoyang.github.io/2023/09/14/shell%E6%A6%82%E8%BF%B0/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="一：概述RabbitMQ是一个开源的消息代理软件，用于实现高级消息队列协议（AMQP）和其他消息传递协议。它为应用程序提供了一种可靠、异步的消息传递机制，允许不同的组件之间进行通信。在本文中，我们将深入了解RabbitMQ，包括它的基本概念、使用方式以及其组成和架构。 rabbitMQ用来解耦应用程序组件，从而太高可伸缩性与可维护性。 二：使用RabbitMQ的使用方式非常简单，它基于以下几个核心">
+<meta property="og:description" content="一 shell概述shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities a">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-11T09:30:38.000Z">
-<meta property="article:modified_time" content="2023-09-11T09:45:59.857Z">
+<meta property="article:published_time" content="2023-09-14T07:00:48.000Z">
+<meta property="article:modified_time" content="2023-09-14T08:43:04.922Z">
 <meta property="article:author" content="杨士铎">
-<meta property="article:tag" content="RabbitMQ">
+<meta property="article:tag" content="Shell">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>rabbitMQ概述 - shiduoyang.note</title>
+  <title>shell命令概述 - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="rabbitMQ概述"></span>
+            <span id="subtitle" data-typed-text="shell命令概述"></span>
           
         </div>
 
@@ -237,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-11 17:30" pubdate>
-          2023年9月11日 下午
+        <time datetime="2023-09-14 15:00" pubdate>
+          2023年9月14日 下午
         </time>
       </span>
     
@@ -249,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.6k 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
         
-          20 分钟
+          13 分钟
         
       </span>
     
@@ -305,54 +305,375 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">rabbitMQ概述</h1>
+            <h1 id="seo-header">shell命令概述</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>RabbitMQ是一个开源的消息代理软件，用于实现高级消息队列协议（AMQP）和其他消息传递协议。它为应用程序提供了一种可靠、异步的消息传递机制，允许不同的组件之间进行通信。在本文中，我们将深入了解RabbitMQ，包括它的基本概念、使用方式以及其组成和架构。</p>
-<p>rabbitMQ用来解耦应用程序组件，从而太高可伸缩性与可维护性。</p>
-<h2 id="二：使用"><a href="#二：使用" class="headerlink" title="二：使用"></a>二：使用</h2><p>RabbitMQ的使用方式非常简单，它基于以下几个核心概念：</p>
-<ol>
-<li><p>生产者（Producer）：<br>生产者是负责将消息发送到RabbitMQ的应用程序。它将消息发布到一个或多个消息队列，并指定消息的内容和目标队列。</p>
-</li>
-<li><p>消息队列（Queue）：<br>消息队列是RabbitMQ中的中间存储区域，用于存储待处理的消息。生产者将消息发布到队列，而消费者从队列中获取消息并进行处理。</p>
-</li>
-<li><p>消费者（Consumer）：<br>消费者是订阅队列并接收消息的应用程序。它们从队列中获取消息，然后执行特定的处理逻辑。</p>
-</li>
-<li><p>消息路由：<br>RabbitMQ提供了丰富的消息路由和过滤功能，允许消息根据一定的规则被路由到一个或多个队列。</p>
-</li>
-<li><p>交换机（Exchange）：<br>交换机是用于决定消息应该被发送到哪个队列的组件。它根据一定的规则将消息路由到队列。</p>
-</li>
-</ol>
-<p>使用实例，用node.js：</p>
-<ol>
-<li>生产者：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> amqp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;amqplib&#x27;</span>);<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">produceMessage</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> connection = <span class="hljs-keyword">await</span> amqp.<span class="hljs-title function_">connect</span>(<span class="hljs-string">&#x27;amqp://localhost&#x27;</span>); <span class="hljs-comment">// RabbitMQ服务器的地址</span><br>    <span class="hljs-keyword">const</span> channel = <span class="hljs-keyword">await</span> connection.<span class="hljs-title function_">createChannel</span>();<br>    <span class="hljs-keyword">const</span> queue = <span class="hljs-string">&#x27;hello&#x27;</span>;<br><br>    <span class="hljs-keyword">const</span> message = <span class="hljs-string">&#x27;Hello, RabbitMQ!&#x27;</span>;<br><br>    <span class="hljs-comment">// 声明一个队列，如果队列不存在则创建</span><br>    <span class="hljs-keyword">await</span> channel.<span class="hljs-title function_">assertQueue</span>(queue, &#123; <span class="hljs-attr">durable</span>: <span class="hljs-literal">false</span> &#125;);<br><br>    <span class="hljs-comment">// 发送消息到队列</span><br>    channel.<span class="hljs-title function_">sendToQueue</span>(queue, <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(message));<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[x] Sent &#x27;<span class="hljs-subst">$&#123;message&#125;</span>&#x27;`</span>);<br><br>    <span class="hljs-comment">// 关闭连接</span><br>    <span class="hljs-keyword">await</span> channel.<span class="hljs-title function_">close</span>();<br>    <span class="hljs-keyword">await</span> connection.<span class="hljs-title function_">close</span>();<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(error);<br>  &#125;<br>&#125;<br><br><span class="hljs-title function_">produceMessage</span>();<br><br></code></pre></td></tr></table></figure></li>
-<li>消费者<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> amqp = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;amqplib&#x27;</span>);<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">consumeMessage</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> connection = <span class="hljs-keyword">await</span> amqp.<span class="hljs-title function_">connect</span>(<span class="hljs-string">&#x27;amqp://localhost&#x27;</span>); <span class="hljs-comment">// RabbitMQ服务器的地址</span><br>    <span class="hljs-keyword">const</span> channel = <span class="hljs-keyword">await</span> connection.<span class="hljs-title function_">createChannel</span>();<br>    <span class="hljs-keyword">const</span> queue = <span class="hljs-string">&#x27;hello&#x27;</span>;<br><br>    <span class="hljs-comment">// 声明一个队列，如果队列不存在则创建</span><br>    <span class="hljs-keyword">await</span> channel.<span class="hljs-title function_">assertQueue</span>(queue, &#123; <span class="hljs-attr">durable</span>: <span class="hljs-literal">false</span> &#125;);<br><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[*] Waiting for messages in <span class="hljs-subst">$&#123;queue&#125;</span>. To exit press CTRL+C`</span>);<br><br>    <span class="hljs-comment">// 接收消息</span><br>    channel.<span class="hljs-title function_">consume</span>(queue, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[x] Received &#x27;<span class="hljs-subst">$&#123;message.content.toString()&#125;</span>&#x27;`</span>);<br>    &#125;, &#123; <span class="hljs-attr">noAck</span>: <span class="hljs-literal">true</span> &#125;);<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(error);<br>  &#125;<br>&#125;<br><br><span class="hljs-title function_">consumeMessage</span>();<br><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="三：组成"><a href="#三：组成" class="headerlink" title="三：组成"></a>三：组成</h2><p>RabbitMQ的组成和架构包括以下核心组件：</p>
-<ol>
-<li><p>Broker：<br>Broker是RabbitMQ的核心组件，负责接收、存储和传递消息。它包括了Exchange、Queue、Channel等子组件。</p>
-</li>
-<li><p>Exchange：<br>Exchange是消息的分发中心，它根据规则将消息路由到一个或多个队列。Exchange有不同的类型，包括Direct、Fanout、Topic等。</p>
-</li>
-<li><p>Queue：<br>Queue是消息的缓冲区，存储待处理的消息。多个消费者可以订阅同一个队列，但只有一个消费者会接收到特定消息。</p>
-</li>
-<li><p>Channel：<br>Channel是在连接中创建的虚拟连接，用于在客户端和Broker之间传递消息。它可以看作是在连接中的独立工作线程，用于提高消息传递效率。</p>
-</li>
-<li><p>Producer和Consumer：<br>Producer是生产者，负责将消息发布到Exchange。Consumer是消费者，负责从Queue获取并处理消息。</p>
-</li>
-</ol>
-<h2 id="四：一些问题"><a href="#四：一些问题" class="headerlink" title="四：一些问题"></a>四：一些问题</h2><ol>
-<li>rabbitMQ是否支持接收历史信息</li>
-</ol>
-<p>RabbitMQ默认情况下不会保留历史消息数据，这意味着一旦消息被消费者接收并确认（Acknowledge），<strong>它们将被删除，不再可用</strong>。这种行为是为了保持消息队列的高性能和低延迟。</p>
-<p>然而，如果实在想要接收历史消息，怎么办？</p>
+                <h2 id="一-shell概述"><a href="#一-shell概述" class="headerlink" title="一 shell概述"></a>一 shell概述</h2><p>shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。<br>shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities and application programs）所调用。</p>
+<h2 id="二-shell命令"><a href="#二-shell命令" class="headerlink" title="二 shell命令"></a>二 shell命令</h2><table>
+<thead>
+<tr>
+<th align="left">文件管理</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ls</td>
+<td align="left">查询目录中的文件及属性信息</td>
+<td align="left">ls -a</td>
+</tr>
+<tr>
+<td align="left">cp</td>
+<td align="left">复制文件或目录</td>
+<td align="left">cp -rf .&#x2F; ..&#x2F;</td>
+</tr>
+<tr>
+<td align="left">mkdir</td>
+<td align="left">创建目录</td>
+<td align="left">mkdir test</td>
+</tr>
+<tr>
+<td align="left">mv</td>
+<td align="left">移动文件或目录</td>
+<td align="left">mv a.txt ..&#x2F;</td>
+</tr>
+<tr>
+<td align="left">pwd</td>
+<td align="left">显示当前目录的路径</td>
+<td align="left">pwd</td>
+</tr>
+<tr>
+<td align="left">tar</td>
+<td align="left">压缩和解压缩文件</td>
+<td align="left">tar czvf File.tar.gz &#x2F;etc</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">文档编辑</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">cat</td>
+<td align="left">在终端显示文件内容</td>
+<td align="left">cat -n x.txt</td>
+</tr>
+<tr>
+<td align="left">echo</td>
+<td align="left">输出字符串或提取后的变量值</td>
+<td align="left">echo ‘123’</td>
+</tr>
+<tr>
+<td align="left">rm</td>
+<td align="left">删除文件或目录</td>
+<td align="left">rm -rf .&#x2F;test</td>
+</tr>
+<tr>
+<td align="left">grep</td>
+<td align="left">强大的文本搜索工具</td>
+<td align="left">grep -arn ‘xxx’ .&#x2F;</td>
+</tr>
+<tr>
+<td align="left">tail</td>
+<td align="left">查看文件尾部内容</td>
+<td align="left">tail -f xxx.log</td>
+</tr>
+<tr>
+<td align="left">rmdir</td>
+<td align="left">删除空目录文件</td>
+<td align="left">rmdir .&#x2F;dir</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">系统管理</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">find</td>
+<td align="left">根据路径和条件搜索指定文件</td>
+<td align="left">find &#x2F; -name ‘*.conf’</td>
+</tr>
+<tr>
+<td align="left">rpm</td>
+<td align="left">rmp软件包管理器</td>
+<td align="left">rpm -ivh cockpit-185-2.el8.x86_64.rpm</td>
+</tr>
+<tr>
+<td align="left">startx</td>
+<td align="left">初始化x-Windows系统</td>
+<td align="left">startx</td>
+</tr>
+<tr>
+<td align="left">ps</td>
+<td align="left">显示进程状态</td>
+<td align="left">ps aux</td>
+</tr>
+<tr>
+<td align="left">uname</td>
+<td align="left">显示系统内核信息</td>
+<td align="left">uname -a</td>
+</tr>
+<tr>
+<td align="left">resize2fs</td>
+<td align="left">同步文件系统容量到内核</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">磁盘管理</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">df</td>
+<td align="left">显示磁盘空间使用量情况</td>
+<td align="left">df -h</td>
+</tr>
+<tr>
+<td align="left">fdisk</td>
+<td align="left">管理磁盘分区</td>
+<td align="left">fdisk -l</td>
+</tr>
+<tr>
+<td align="left">lsblk</td>
+<td align="left">查看系统的磁盘使用情况</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">vgextend</td>
+<td align="left">扩展卷组设备</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">hdparm</td>
+<td align="left">显示与设定硬盘参数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">pvcreate</td>
+<td align="left">创建物理卷设备</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">文件传输</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">tftp</td>
+<td align="left">上传及下载命令</td>
+<td align="left">ftp 192.168.10.10;get File1.txt</td>
+</tr>
+<tr>
+<td align="left">curl</td>
+<td align="left">文件与传输工具</td>
+<td align="left">curl -X ‘POST’ localhost:4000&#x2F;</td>
+</tr>
+<tr>
+<td align="left">fsck</td>
+<td align="left">检查与修复文件系统</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">lprm</td>
+<td align="left">移除打印队列中的人物</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ftpwho</td>
+<td align="left">显示FTP会话信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">rsync</td>
+<td align="left">远程数据同步工具</td>
+<td align="left">rsync -r &#x2F;Dir 192.168.10.10:&#x2F;Dir</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">网络通讯</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ssh</td>
+<td align="left">安全的远程连接服务器</td>
+<td align="left">ssh 192.168.10.10</td>
+</tr>
+<tr>
+<td align="left">netstat</td>
+<td align="left">显示网络状态</td>
+<td align="left">netstat -ap</td>
+</tr>
+<tr>
+<td align="left">dhclient</td>
+<td align="left">动态获取或释放ip地址</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ifconfig</td>
+<td align="left">显示或设置网络设备参数信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ping</td>
+<td align="left">测试主机间网络连通性</td>
+<td align="left">ping 192.168.10.10</td>
+</tr>
+<tr>
+<td align="left">sshd</td>
+<td align="left">openssh服务器守护进程</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">设备管理</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">mount</td>
+<td align="left">将文件挂载到目录</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">lspci</td>
+<td align="left">显示当前设备PCI总线设备信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sencors</td>
+<td align="left">监测服务器硬件信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">setleds</td>
+<td align="left">设置键盘的led灯光状态</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">rfkill</td>
+<td align="left">管理蓝牙和wify设备</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">setpci</td>
+<td align="left">设置PCI硬件设备参数</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">备份压缩</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">zip</td>
+<td align="left">压缩文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">unzip</td>
+<td align="left">解压缩zip文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">gzip</td>
+<td align="left">压缩和解压文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">zipinfo</td>
+<td align="left">查看压缩文件信息</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">gunzip</td>
+<td align="left">解压提取文件内容</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">unarj</td>
+<td align="left">解压arj文件</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">其他命令</th>
+<th align="left">命令</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hash</td>
+<td align="left">管理命令运行时查询的hash表</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">wait</td>
+<td align="left">等待指令执行完毕</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">wget</td>
+<td align="left">下载网络文件</td>
+<td align="left">wget <a target="_blank" rel="noopener" href="http://xxxxx/x.log">http://xxxxx/x.log</a></td>
+</tr>
+<tr>
+<td align="left">history</td>
+<td align="left">显示与管理历史命令记录</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">bc</td>
+<td align="left">数字计算器</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">rmmod</td>
+<td align="left">移除内核模块</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>所以，要想知道某端口的占用情况，有几种方式？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux | grep 4000<br>lsof -i:4000<br></code></pre></td></tr></table></figure>
+
+<p>常用的命令：</p>
 <ul>
-<li>持久化消息。在消息发布时将persistent设置为true</li>
-<li>使用消息日志</li>
-<li>使用消息记录器</li>
+<li>ps</li>
+<li>curl</li>
+<li>grep</li>
+<li>ssh</li>
+<li>netstat</li>
 </ul>
+<h2 id="三-参考"><a href="#三-参考" class="headerlink" title="三 参考"></a>三 参考</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.linuxcool.com/">https://www.linuxcool.com/</a></p>
 
                 
               </div>
@@ -371,7 +692,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  <a href="/categories/Shell/" class="category-chain-item">Shell</a>
   
   
 
@@ -386,7 +707,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/RabbitMQ/" class="print-no-link">#RabbitMQ</a>
+        <a href="/tags/Shell/" class="print-no-link">#Shell</a>
       
     </div>
   
@@ -398,8 +719,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>rabbitMQ概述</div>
-      <div>https://shiduoyang.github.io/2023/09/11/rabbitMQ概述/</div>
+      <div>shell命令概述</div>
+      <div>https://shiduoyang.github.io/2023/09/14/shell概述/</div>
     </div>
     <div class="license-meta">
       
@@ -411,7 +732,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月11日</div>
+          <div>2023年9月14日</div>
         </div>
       
       
@@ -443,18 +764,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/14/shell%E6%A6%82%E8%BF%B0/" title="shell命令概述">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">shell命令概述</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/11/node-js%E5%8F%91%E6%95%A3%E9%97%AE%E9%A2%98-%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" title="node.js发散问题:进程,线程与协程的区别">
-                        <span class="hidden-mobile">node.js发散问题:进程,线程与协程的区别</span>
+                      <a href="/2023/09/11/rabbitMQ%E6%A6%82%E8%BF%B0/" title="rabbitMQ概述">
+                        <span class="hidden-mobile">rabbitMQ概述</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -16,22 +16,22 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一 shell概述shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities a">
+    <meta name="description" content="一：概述道德经，分为道经和德经，内容主要是两块，一块是帝王治理天下之术，一块是为人处世之道。 二：节选 道可道，非常道，名可名，非常名。无名天地之使，有名天地之母。 天下皆知美之为美，斯恶已。皆知善之为善，斯不善已。故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教；万物作焉而不辞，生而不有，危而不持，功成而弗居，是以不去。 上善若水。水善利万物而不争，处">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell命令概述">
-<meta property="og:url" content="https://shiduoyang.github.io/2023/09/14/shell%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="读书笔记-道德经">
+<meta property="og:url" content="https://shiduoyang.github.io/2023/09/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E9%81%93%E5%BE%B7%E7%BB%8F/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="一 shell概述shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities a">
+<meta property="og:description" content="一：概述道德经，分为道经和德经，内容主要是两块，一块是帝王治理天下之术，一块是为人处世之道。 二：节选 道可道，非常道，名可名，非常名。无名天地之使，有名天地之母。 天下皆知美之为美，斯恶已。皆知善之为善，斯不善已。故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教；万物作焉而不辞，生而不有，危而不持，功成而弗居，是以不去。 上善若水。水善利万物而不争，处">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-14T07:00:48.000Z">
-<meta property="article:modified_time" content="2023-09-14T08:43:04.922Z">
+<meta property="article:published_time" content="2023-09-14T08:58:34.000Z">
+<meta property="article:modified_time" content="2023-09-14T09:25:31.659Z">
 <meta property="article:author" content="杨士铎">
-<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="读书笔记">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>shell命令概述 - shiduoyang.note</title>
+  <title>读书笔记-道德经 - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="shell命令概述"></span>
+            <span id="subtitle" data-typed-text="读书笔记-道德经"></span>
           
         </div>
 
@@ -237,7 +237,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-14 15:00" pubdate>
+        <time datetime="2023-09-14 16:58" pubdate>
           2023年9月14日 下午
         </time>
       </span>
@@ -249,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.3k 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
         
-          13 分钟
+          12 分钟
         
       </span>
     
@@ -305,375 +305,31 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">shell命令概述</h1>
+            <h1 id="seo-header">读书笔记-道德经</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="一-shell概述"><a href="#一-shell概述" class="headerlink" title="一 shell概述"></a>一 shell概述</h2><p>shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。<br>shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities and application programs）所调用。</p>
-<h2 id="二-shell命令"><a href="#二-shell命令" class="headerlink" title="二 shell命令"></a>二 shell命令</h2><table>
-<thead>
-<tr>
-<th align="left">文件管理</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">ls</td>
-<td align="left">查询目录中的文件及属性信息</td>
-<td align="left">ls -a</td>
-</tr>
-<tr>
-<td align="left">cp</td>
-<td align="left">复制文件或目录</td>
-<td align="left">cp -rf .&#x2F; ..&#x2F;</td>
-</tr>
-<tr>
-<td align="left">mkdir</td>
-<td align="left">创建目录</td>
-<td align="left">mkdir test</td>
-</tr>
-<tr>
-<td align="left">mv</td>
-<td align="left">移动文件或目录</td>
-<td align="left">mv a.txt ..&#x2F;</td>
-</tr>
-<tr>
-<td align="left">pwd</td>
-<td align="left">显示当前目录的路径</td>
-<td align="left">pwd</td>
-</tr>
-<tr>
-<td align="left">tar</td>
-<td align="left">压缩和解压缩文件</td>
-<td align="left">tar czvf File.tar.gz &#x2F;etc</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">文档编辑</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">cat</td>
-<td align="left">在终端显示文件内容</td>
-<td align="left">cat -n x.txt</td>
-</tr>
-<tr>
-<td align="left">echo</td>
-<td align="left">输出字符串或提取后的变量值</td>
-<td align="left">echo ‘123’</td>
-</tr>
-<tr>
-<td align="left">rm</td>
-<td align="left">删除文件或目录</td>
-<td align="left">rm -rf .&#x2F;test</td>
-</tr>
-<tr>
-<td align="left">grep</td>
-<td align="left">强大的文本搜索工具</td>
-<td align="left">grep -arn ‘xxx’ .&#x2F;</td>
-</tr>
-<tr>
-<td align="left">tail</td>
-<td align="left">查看文件尾部内容</td>
-<td align="left">tail -f xxx.log</td>
-</tr>
-<tr>
-<td align="left">rmdir</td>
-<td align="left">删除空目录文件</td>
-<td align="left">rmdir .&#x2F;dir</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">系统管理</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">find</td>
-<td align="left">根据路径和条件搜索指定文件</td>
-<td align="left">find &#x2F; -name ‘*.conf’</td>
-</tr>
-<tr>
-<td align="left">rpm</td>
-<td align="left">rmp软件包管理器</td>
-<td align="left">rpm -ivh cockpit-185-2.el8.x86_64.rpm</td>
-</tr>
-<tr>
-<td align="left">startx</td>
-<td align="left">初始化x-Windows系统</td>
-<td align="left">startx</td>
-</tr>
-<tr>
-<td align="left">ps</td>
-<td align="left">显示进程状态</td>
-<td align="left">ps aux</td>
-</tr>
-<tr>
-<td align="left">uname</td>
-<td align="left">显示系统内核信息</td>
-<td align="left">uname -a</td>
-</tr>
-<tr>
-<td align="left">resize2fs</td>
-<td align="left">同步文件系统容量到内核</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">磁盘管理</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">df</td>
-<td align="left">显示磁盘空间使用量情况</td>
-<td align="left">df -h</td>
-</tr>
-<tr>
-<td align="left">fdisk</td>
-<td align="left">管理磁盘分区</td>
-<td align="left">fdisk -l</td>
-</tr>
-<tr>
-<td align="left">lsblk</td>
-<td align="left">查看系统的磁盘使用情况</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">vgextend</td>
-<td align="left">扩展卷组设备</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">hdparm</td>
-<td align="left">显示与设定硬盘参数</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">pvcreate</td>
-<td align="left">创建物理卷设备</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">文件传输</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">tftp</td>
-<td align="left">上传及下载命令</td>
-<td align="left">ftp 192.168.10.10;get File1.txt</td>
-</tr>
-<tr>
-<td align="left">curl</td>
-<td align="left">文件与传输工具</td>
-<td align="left">curl -X ‘POST’ localhost:4000&#x2F;</td>
-</tr>
-<tr>
-<td align="left">fsck</td>
-<td align="left">检查与修复文件系统</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">lprm</td>
-<td align="left">移除打印队列中的人物</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">ftpwho</td>
-<td align="left">显示FTP会话信息</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">rsync</td>
-<td align="left">远程数据同步工具</td>
-<td align="left">rsync -r &#x2F;Dir 192.168.10.10:&#x2F;Dir</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">网络通讯</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">ssh</td>
-<td align="left">安全的远程连接服务器</td>
-<td align="left">ssh 192.168.10.10</td>
-</tr>
-<tr>
-<td align="left">netstat</td>
-<td align="left">显示网络状态</td>
-<td align="left">netstat -ap</td>
-</tr>
-<tr>
-<td align="left">dhclient</td>
-<td align="left">动态获取或释放ip地址</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">ifconfig</td>
-<td align="left">显示或设置网络设备参数信息</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">ping</td>
-<td align="left">测试主机间网络连通性</td>
-<td align="left">ping 192.168.10.10</td>
-</tr>
-<tr>
-<td align="left">sshd</td>
-<td align="left">openssh服务器守护进程</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">设备管理</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">mount</td>
-<td align="left">将文件挂载到目录</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">lspci</td>
-<td align="left">显示当前设备PCI总线设备信息</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">sencors</td>
-<td align="left">监测服务器硬件信息</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">setleds</td>
-<td align="left">设置键盘的led灯光状态</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">rfkill</td>
-<td align="left">管理蓝牙和wify设备</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">setpci</td>
-<td align="left">设置PCI硬件设备参数</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">备份压缩</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">zip</td>
-<td align="left">压缩文件</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">unzip</td>
-<td align="left">解压缩zip文件</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">gzip</td>
-<td align="left">压缩和解压文件</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">zipinfo</td>
-<td align="left">查看压缩文件信息</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">gunzip</td>
-<td align="left">解压提取文件内容</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">unarj</td>
-<td align="left">解压arj文件</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">其他命令</th>
-<th align="left">命令</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">hash</td>
-<td align="left">管理命令运行时查询的hash表</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">wait</td>
-<td align="left">等待指令执行完毕</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">wget</td>
-<td align="left">下载网络文件</td>
-<td align="left">wget <a target="_blank" rel="noopener" href="http://xxxxx/x.log">http://xxxxx/x.log</a></td>
-</tr>
-<tr>
-<td align="left">history</td>
-<td align="left">显示与管理历史命令记录</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">bc</td>
-<td align="left">数字计算器</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">rmmod</td>
-<td align="left">移除内核模块</td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-<p>所以，要想知道某端口的占用情况，有几种方式？</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux | grep 4000<br>lsof -i:4000<br></code></pre></td></tr></table></figure>
-
-<p>常用的命令：</p>
-<ul>
-<li>ps</li>
-<li>curl</li>
-<li>grep</li>
-<li>ssh</li>
-<li>netstat</li>
+                <h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>道德经，分为道经和德经，内容主要是两块，一块是帝王治理天下之术，一块是为人处世之道。</p>
+<h2 id="二：节选"><a href="#二：节选" class="headerlink" title="二：节选"></a>二：节选</h2><ul>
+<li>道可道，非常道，名可名，非常名。无名天地之使，有名天地之母。</li>
+<li>天下皆知美之为美，斯恶已。皆知善之为善，斯不善已。故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教；万物作焉而不辞，生而不有，危而不持，功成而弗居，是以不去。</li>
+<li>上善若水。水善利万物而不争，处众人之所恶，故几于道。居善地，心善渊，与善仁，言善信，正善治，事善能，动善时。夫唯不争，故无尤</li>
+<li>大道废，有仁义;智慧出，有大伪;六亲不和，有孝慈;国家昏乱，有忠臣。</li>
+<li>曲则全，枉则直，洼则盈，敝则新，少则得，多则惑。是以 圣人抱一为天下式。不自见，故明;不自是，故彰;不自伐， 故有功;不自矜，故长。夫唯不争，故天下莫能与之争。古 之所谓曲则全者，岂虚言哉!诚全而归之。</li>
+<li>企者不立，跨者不行，自见者不明，自是者不彰，自伐者无 功，自矜者不长。其在道也，曰“馀食赘行”。物或恶之， 故有道者不处。</li>
+<li>知其雄，守其雌，为天下谿。为天下谿，常德不离，复归于婴儿。知其白，守其黑，为天下式。为天下式，常德不忒，复归于无极。知其荣，守其辱，为天下谷，常德乃足，复归于朴。朴散则为器，圣人用之，则为官长，故大制不割。</li>
+<li>知人者智，自知者明。胜人者有力，自胜者强。知足者富。强行者有志。不失其所者久。死而不亡者寿。</li>
+<li>将欲歙之，必固张之;将欲弱之，必固强之;将欲废之，必固兴之;将欲夺之，必固与之。是谓微明。柔弱胜刚强。鱼不可脱于渊，国之利器不可以示人。</li>
+<li>上德不德，是以有德;下德不失德，是以无德。上德无为而无以为;下德为之而有以为。上仁为之而无以为;上义为之而有以为。上礼为之而莫之应，则攘臂而扔之。故失道而后德，失德而后仁，失仁而后义，失义而后礼。夫礼者，忠信之薄，而乱之首。前识者，道之华，而愚之始。是以大丈夫处其厚，不居其薄;处其实，不居其华。故去彼取此。</li>
+<li>反者道之动，弱者道之用。天下万物生于有，有生于无。</li>
+<li>道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡、不穀，而王公以为称。故物或损之而益，或益之而损。人之所教，我亦教之。强梁者不得其死，吾将以为教父。</li>
+<li>其安易持，其未兆易谋。其脆易泮，其微易散。为之于未有， 治之于未乱。合抱之木，生于毫末;九层之台，起于累土; 千里之行，始于足下。为者败之，执者失之。是以圣人无为 故无败，无执故无失。民之从事，常于几成而败之。慎终如 始，则无败事。是以圣人欲不欲，不贵难得之货;学不学， 复众人之所过。以辅万物之自然，而不敢为。</li>
+<li>民不畏死，奈何以死惧之?若使民常畏死，而为奇者，吾得执而杀之，孰敢?常有司杀者杀。夫代司杀者杀，是谓代大匠斲，夫代大匠斲者，希有不伤其手矣。</li>
+<li>人之生也柔弱，其死也坚强。万物草木之生也柔脆，其死也枯藁。故坚强者死之徒，柔弱者生之徒。是以兵强则不胜，木强则兵。强大处下，柔弱处上。</li>
+<li>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害;圣人之道，为而不争。</li>
 </ul>
-<h2 id="三-参考"><a href="#三-参考" class="headerlink" title="三 参考"></a>三 参考</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.linuxcool.com/">https://www.linuxcool.com/</a></p>
+<h2 id="三：总结"><a href="#三：总结" class="headerlink" title="三：总结"></a>三：总结</h2><p>道为世界运转的根基，人应该顺应事物发展的规律做事，不做违背规律的事。<br>待人处事，常处于一个“下”的位置，比较好。</p>
 
                 
               </div>
@@ -692,7 +348,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Shell/" class="category-chain-item">Shell</a>
+  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
   
   
 
@@ -707,7 +363,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Shell/" class="print-no-link">#Shell</a>
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="print-no-link">#读书笔记</a>
       
     </div>
   
@@ -719,8 +375,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>shell命令概述</div>
-      <div>https://shiduoyang.github.io/2023/09/14/shell概述/</div>
+      <div>读书笔记-道德经</div>
+      <div>https://shiduoyang.github.io/2023/09/14/读书笔记-道德经/</div>
     </div>
     <div class="license-meta">
       
@@ -764,18 +420,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E9%81%93%E5%BE%B7%E7%BB%8F/" title="读书笔记-道德经">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">读书笔记-道德经</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/11/rabbitMQ%E6%A6%82%E8%BF%B0/" title="rabbitMQ概述">
-                        <span class="hidden-mobile">rabbitMQ概述</span>
+                      <a href="/2023/09/14/shell%E6%A6%82%E8%BF%B0/" title="shell命令概述">
+                        <span class="hidden-mobile">shell命令概述</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -16,24 +16,21 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一：概述之前的文章中提到过mysql innodb的索引结构，这篇文章探讨mysql的索引建立规则，即慢查询。 二：索引建立规则 满足最左前缀匹配原则。在建立索引时需考虑将来的应用场景，及可能的需求变化。 尽量选择区分度高的列作为索引。区分度 &#x3D; count(distinct col)  &#x2F; count(col) ，通俗来说就是相同的值比较少的列 尽量的扩展索引而非新建索引 索">
+    <meta name="description" content="一 概述mongodb在高并发下保存失败，报了version error错误 来自同一用户的请求，A，B,A在未返回之前，B到来了，且A，B在几乎同时，去更新了同一个document。处理流程较长的请求在处理过程中，如果有一个处理流程较短的请求，就有可能出现上述情况。 解决方案：加了redlock锁 改进方案：  找一个kafka, 将请求路径及参数发到kafka，然后由server订阅kafka">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql索引建立指导规则及慢查询分析">
-<meta property="og:url" content="https://shiduoyang.github.io/2023/09/05/mysql%E7%B4%A2%E5%BC%95%E5%BB%BA%E7%AB%8B%E6%8C%87%E5%AF%BC%E8%A7%84%E5%88%99%E5%8F%8A%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="记一次高并发下mongodb保存失败问题">
+<meta property="og:url" content="https://shiduoyang.github.io/2023/09/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8Bmongodb%E4%BF%9D%E5%AD%98%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="一：概述之前的文章中提到过mysql innodb的索引结构，这篇文章探讨mysql的索引建立规则，即慢查询。 二：索引建立规则 满足最左前缀匹配原则。在建立索引时需考虑将来的应用场景，及可能的需求变化。 尽量选择区分度高的列作为索引。区分度 &#x3D; count(distinct col)  &#x2F; count(col) ，通俗来说就是相同的值比较少的列 尽量的扩展索引而非新建索引 索">
+<meta property="og:description" content="一 概述mongodb在高并发下保存失败，报了version error错误 来自同一用户的请求，A，B,A在未返回之前，B到来了，且A，B在几乎同时，去更新了同一个document。处理流程较长的请求在处理过程中，如果有一个处理流程较短的请求，就有可能出现上述情况。 解决方案：加了redlock锁 改进方案：  找一个kafka, 将请求路径及参数发到kafka，然后由server订阅kafka">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shiduoyang.github.io/pic/manchaxunrizhi.jpg">
-<meta property="article:published_time" content="2023-09-05T08:08:05.000Z">
-<meta property="article:modified_time" content="2023-09-26T02:31:35.581Z">
+<meta property="article:published_time" content="2023-09-19T09:32:32.000Z">
+<meta property="article:modified_time" content="2023-09-26T00:30:34.115Z">
 <meta property="article:author" content="杨士铎">
-<meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://shiduoyang.github.io/pic/manchaxunrizhi.jpg">
   
   
   
-  <title>mysql索引建立指导规则及慢查询分析 - shiduoyang.note</title>
+  <title>记一次高并发下mongodb保存失败问题 - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -228,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="mysql索引建立指导规则及慢查询分析"></span>
+            <span id="subtitle" data-typed-text="记一次高并发下mongodb保存失败问题"></span>
           
         </div>
 
@@ -239,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-05 16:08" pubdate>
-          2023年9月5日 下午
+        <time datetime="2023-09-19 17:32" pubdate>
+          2023年9月19日 下午
         </time>
       </span>
     
@@ -251,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          252 字
         
       </span>
     
@@ -262,7 +259,7 @@
         
         
         
-          10 分钟
+          3 分钟
         
       </span>
     
@@ -307,42 +304,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">mysql索引建立指导规则及慢查询分析</h1>
+            <h1 id="seo-header">记一次高并发下mongodb保存失败问题</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><p>之前的文章中提到过mysql innodb的索引结构，这篇文章探讨mysql的索引建立规则，即慢查询。</p>
-<h2 id="二：索引建立规则"><a href="#二：索引建立规则" class="headerlink" title="二：索引建立规则"></a>二：索引建立规则</h2><ol>
-<li>满足最左前缀匹配原则。在建立索引时需考虑将来的应用场景，及可能的需求变化。</li>
-<li>尽量选择区分度高的列作为索引。区分度 &#x3D; count(distinct col)  &#x2F; count(col) ，通俗来说就是相同的值比较少的列</li>
-<li>尽量的扩展索引而非新建索引</li>
-<li>索引尽量建立在小字段上，一些长的文本字段，不要建立索引</li>
-</ol>
-<h2 id="三：慢查询如何分析"><a href="#三：慢查询如何分析" class="headerlink" title="三：慢查询如何分析"></a>三：慢查询如何分析</h2><ol>
-<li><p>explain 查看执行计划</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">explain <span class="hljs-keyword">select</span> * from xxx <span class="hljs-built_in">where</span> xxxx;<br></code></pre></td></tr></table></figure></li>
-<li><p>开启慢查询日志</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> global show_query_log = on; <span class="hljs-comment"># 这种是在交互式命令中的方式，如果数据库重启，这些就会失效，如果需要长期有效，需要修改mysql的配置文件</span><br>show variables like <span class="hljs-string">&#x27;%long%&#x27;</span>; <br><span class="hljs-built_in">set</span> long_query_time=0.02;// <span class="hljs-comment"># long_query_time是慢查询的临界值单位秒</span><br></code></pre></td></tr></table></figure>
-<p> 慢查询日志的样子：<br> <img src="/pic/manchaxunrizhi.jpg" srcset="/img/loading.gif" lazyload alt="慢查询日志"></p>
-</li>
-<li><p>开启性能详情</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">show variables like <span class="hljs-string">&#x27;%profiling%&#x27;</span><br><span class="hljs-built_in">set</span> profiling = on<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="四：慢查询的常见原因"><a href="#四：慢查询的常见原因" class="headerlink" title="四：慢查询的常见原因"></a>四：慢查询的常见原因</h2><ol>
-<li>没加索引&#x2F;没用索引导致全表扫描</li>
-<li>单表数据量太大。这种情况看下索引设置的到底对不对，要么考虑分表</li>
-<li>limit 深分页。比方说每页10条，去获取第十万页的数据。 如 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> xx <span class="hljs-keyword">where</span> click <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> id limit <span class="hljs-number">100000</span>,<span class="hljs-number">10</span>;<br></code></pre></td></tr></table></figure>
- 即使click加了索引，但因为二级索引的叶子结点保存的是主键的值，每条记录还需要回表查询才能知道是否需要丢弃，在该例子中，需要回表100010次，因此会很慢。<br> 这种情况下，需要考虑先查出主键ID，再根据主键查出所有字段 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <br>xxx t1,<br>(<span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> xxx <span class="hljs-keyword">where</span> click <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> id limit <span class="hljs-number">10000</span>,<span class="hljs-number">10</span>) t2<br><span class="hljs-keyword">where</span> t1.id <span class="hljs-operator">=</span> t2.id;<br></code></pre></td></tr></table></figure></li>
-<li>排序不当，导致使用filesort查询<br> 如果  order by xxx 这个xxx不能由查询此sql使用的索引直接完成，mysql就有可能会进行filewort<ul>
-<li>如查询的数量较少，没有超过系统变量sort_buffer_size的大小，会进行内存排序（快排）</li>
-<li>如查询的数量较多，超过了该系统变量，会使用文件进行排序（归并）<br> 会使用filesort查询的场景</li>
-</ul>
+                <h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一 概述"></a>一 概述</h2><p>mongodb在高并发下保存失败，报了version error错误</p>
+<p>来自同一用户的请求，A，B,A在未返回之前，B到来了，且A，B在几乎同时，去更新了同一个document。<br>处理流程较长的请求在处理过程中，如果有一个处理流程较短的请求，就有可能出现上述情况。</p>
+<p>解决方案：<br>加了redlock锁</p>
+<p>改进方案：</p>
 <ol>
-<li>order by 用的字段，不是查询该sql使用到的索引。解决方案：排序字段加索引</li>
-<li>俩排序字段，一个正序，一个倒序，解决方案：可分析需求，然后比方说加个字段，在新的字段上排序，</li>
-</ol>
-</li>
+<li>找一个kafka, 将请求路径及参数发到kafka，然后由server订阅kafka的topic，topic可以是server+serverNum</li>
+<li>让客户端做个限制，当之前的请求未返回时，不发送后续的请求。</li>
 </ol>
 
                 
@@ -352,34 +325,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Mysql/" class="category-chain-item">Mysql</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Mysql/" class="print-no-link">#Mysql</a>
-      
-    </div>
   
 </div>
 
@@ -389,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>mysql索引建立指导规则及慢查询分析</div>
-      <div>https://shiduoyang.github.io/2023/09/05/mysql索引建立指导规则及慢查询分析/</div>
+      <div>记一次高并发下mongodb保存失败问题</div>
+      <div>https://shiduoyang.github.io/2023/09/19/记一次高并发下mongodb保存失败问题/</div>
     </div>
     <div class="license-meta">
       
@@ -402,7 +347,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月5日</div>
+          <div>2023年9月19日</div>
         </div>
       
       
@@ -434,9 +379,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/06/mysql-innodb%E6%94%AF%E6%8C%81%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8Emvcc/" title="mysql innodb支持的隔离级别与mvcc">
+                      <a href="/2023/09/19/kafka%E6%A6%82%E8%BF%B0/" title="kafka概述">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql innodb支持的隔离级别与mvcc</span>
+                        <span class="hidden-mobile">kafka概述</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -444,8 +389,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/04/mysql%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E5%A4%B1%E6%95%88%E6%83%85%E6%99%AF%E6%B1%87%E6%80%BB/" title="mysql索引结构及失效情景汇总">
-                        <span class="hidden-mobile">mysql索引结构及失效情景汇总</span>
+                      <a href="/2023/09/15/aws%E6%9C%8D%E5%8A%A1%E5%85%A8%E6%99%AF%E6%A6%82%E8%BF%B0/" title="aws服务全景概述">
+                        <span class="hidden-mobile">aws服务全景概述</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

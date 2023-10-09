@@ -44,3 +44,6 @@ innodb支持的隔离级别，来到了serializable
 3. redolog：记录了每个事务读对数据库的修改操作，用于数据恢复
 4. undolog：innodb通过回滚日志来回滚事务，回滚时逆序执行从而保证数据的一致性
     如操作时增加一行，那回滚日志中记录的应该是删除该行。
+
+## 三 拓展阅读
+关于MVCC：https://www.51cto.com/article/719614.html

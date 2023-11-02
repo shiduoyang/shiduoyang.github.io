@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>mongodb与mysql如何选择</title>
+    <link href="/2023/10/17/mongodb%E4%B8%8Emysql%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/"/>
+    <url>/2023/10/17/mongodb%E4%B8%8Emysql%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</url>
+    
+    <content type="html"><![CDATA[<p>数据模型：</p><ol><li>如果需要建立复杂的关系模型，比如多对多关系或者表连接，使用mysql。mysql提供了强大的sql查询语言，能够处理复杂的关系查询。</li><li>如果需要存储动态和非结构化的数据，用mongodb，mongodb的文档模型可以轻松的存储和查询各种类型的数据。</li></ol><p>数据量和性能：<br>3. 如果需要处理大量的结构化数据，且需要高性能和包并发处理，那么用mysql。mysql使用索引和优化技术提供快速的查询和事务处理。<br>4. 如果需要处理大量的非结构话数据，且需要水平扩展能力，用mongodb。mongodb使用分片技术来实现水平扩展，可以处理大规模的数据和高并发请求。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>系统设计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>系统设计</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>http之headers与https概述</title>
     <link href="/2023/09/26/http%E4%B9%8Bheaders%E4%B8%8Ehttps%E6%A6%82%E8%BF%B0/"/>
     <url>/2023/09/26/http%E4%B9%8Bheaders%E4%B8%8Ehttps%E6%A6%82%E8%BF%B0/</url>
@@ -11,19 +36,43 @@
     <content type="html"><![CDATA[<h2 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h2><h2 id="二：http-header"><a href="#二：http-header" class="headerlink" title="二：http header"></a>二：http header</h2><p>常见字段</p><ol><li>content-type：<ul><li>text&#x2F;html ： HTML格式</li><li>text&#x2F;plain ：纯文本格式</li><li>text&#x2F;xml ： XML格式</li><li>image&#x2F;gif ：gif图片格式</li><li>image&#x2F;jpeg ：jpg图片格式</li><li>image&#x2F;png：png图片格式<br> 以application开头的媒体格式类型：</li><li>application&#x2F;xhtml+xml ：XHTML格式</li><li>application&#x2F;xml： XML数据格式</li><li>application&#x2F;atom+xml ：Atom XML聚合格式</li><li>application&#x2F;json： JSON数据格式</li><li>application&#x2F;pdf：pdf格式</li><li>application&#x2F;msword ： Word文档格式</li><li>application&#x2F;octet-stream ： 二进制流数据（如常见的文件下载）</li><li>application&#x2F;x-www-form-urlencoded ： <form encType=””>中默认的encType，form表单数据被编码为key&#x2F;value格式发送到服务器（表单默认的提交数据的格式）<br> 另外一种常见的媒体格式是上传文件之时使用的：</li><li>multipart&#x2F;form-data ： 需要在表单中进行文件上传时，就需要使用该格式</li></ul></li><li>Authorization 鉴权相关</li><li>Cache-Control 指定请求和响应遵循的缓存机制</li><li>Cookie 为辨别用户身份保存在浏览器的缓存数据</li><li>User-AgentUser-Agent的内容包含发出请求的用户信息如操作系统版本、CPU 类型、浏览器版本等（爬虫相关）</li><li>referer 先前网页的地址，即请求的来路</li></ol><p></p><h2 id="二：http三次握手与四次挥手"><a href="#二：http三次握手与四次挥手" class="headerlink" title="二：http三次握手与四次挥手"></a>二：http三次握手与四次挥手</h2><p>http基于TCP建立连接，TCP报文中的相关字段：</p><ol><li>SYN&#x3D;1用来标识想建立连接；</li><li>ACK&#x3D;1标识这是一条确认报文</li><li>seq 是序号</li><li>ack 是确认序号</li></ol><p>HTTP三次握手</p><ol><li>SYN&#x3D;1 ACK&#x3D;0 seq&#x3D;x ack&#x3D;0 （即想建立TCP连接）</li><li>SYN&#x3D;1 ACK&#x3D;1 seq&#x3D;y ack&#x3D;x+1  （服务端回复报文）</li><li>SYN&#x3D;0 ACK&#x3D;1 seq&#x3D;x+1 ack&#x3D;y+1  (客户端回复报文)</li></ol><p>三次握手的目的，是为了确认双方都有收发能力。</p><p>HTTP四次挥手</p><ol><li>FIN&#x3D;1 客户端向服务器发</li><li>ACK&#x3D;1</li><li>FIN&#x3D;1服务器向客户端发</li><li>ACK&#x3D;1</li></ol><h2 id="HTTP与HTTPS的区别"><a href="#HTTP与HTTPS的区别" class="headerlink" title="HTTP与HTTPS的区别"></a>HTTP与HTTPS的区别</h2><p>HTTPS 使用TLS (SSL) 来加密普通的HTTP 请求和响应，ssl协议也是应用层协议，但它工作在应用层和传输层之间。<br>SSL（Secure Sockets Layer安全套接层）</p><p>https请求过程，在TCP连接建立之后：</p><ol><li>客户端发送支持的加密协议及版本，如SSL TLS</li><li>服务端收到后，选择合适的加密协议，返回证书（包含公钥）</li><li>客户端收到以后，确定证书的有效性，如有效，生成一个会话秘钥（即一个随机数），用公钥加密它，并发送给服务端</li><li>服务端收到以后，用私钥解密，拿到会话秘钥，随后用这个会话秘钥对要发送的数据进行加密</li><li>客户端收到以后，用会话秘钥解密，并且解析数据呈现给客户</li></ol><p>简单来说，用非对称加密的方式来传输了会话秘钥，后续用会话秘钥来加解密通信内容。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.rfc-editor.org/rfc/rfc9110.html#field.content-type">https://www.rfc-editor.org/rfc/rfc9110.html#field.content-type</a><br><a href="https://cloud.tencent.com/developer/article/1017988">https://cloud.tencent.com/developer/article/1017988</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>Http</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Http</tag>
+      
+    </tags>
     
   </entry>
   
   
   
   <entry>
-    <title>常见的网络攻击</title>
+    <title>常见的网络攻击及防护要点</title>
     <link href="/2023/09/25/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/"/>
     <url>/2023/09/25/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/</url>
     
     <content type="html"><![CDATA[<h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一  概述"></a>一  概述</h2><h2 id="二-常见的网络攻击类型"><a href="#二-常见的网络攻击类型" class="headerlink" title="二 常见的网络攻击类型"></a>二 常见的网络攻击类型</h2><ol><li>注入类<ul><li>sql注入</li><li>os命令注入（操作系统命令 注入）</li><li>ldap注入</li><li>远程文件包含：url中加入某些参数，让项目require了恶意的文件</li></ul></li><li>绕过防御类<ul><li>目录遍历：访问应用之外的文件</li><li>不安全对象引用</li></ul></li><li>跨站类<ul><li>跨站请求</li><li>跨站请求伪造（CSRF）：通过已认证的浏览器在受信任的站点上执行非正常操作，如A可能点进去一个邮件中带有转账请求的链接。</li><li>跨站脚本攻击：链接中带脚本，诱导用户点击，而后脚本窃取用户的session发给攻击者</li></ul></li><li>资源消耗类<ul><li>分布式拒绝服务（DDOS)：攻击者用网络协议的固有漏洞，伪造合理的服务请求，消耗服务器有限的贷款和服务资源。如UDP。一般攻击者会利用被留后门的主机，批量向被攻击者发请求。</li></ul></li><li>篡改仿冒类<ul><li>认证和会话管理实效: 攻击者窃取服务器上保存的session，来进行各种操作</li><li>隐藏变量更改</li></ul></li><li>配置管理类<ul><li>不安全的数据存储： 需要对敏感数据加密</li><li>信息泄露和不安全的参数处理</li></ul></li><li>窃听攻击<ul><li>中间人攻击：攻击者充当客户端与服务器之间的中间人，进行窃听，及非法操作。可以给参数加密，加密信息存储在header，来解决</li></ul></li></ol><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《WEB应用安全攻防技术讲座(徐震)》</p>]]></content>
     
     
+    <categories>
+      
+      <category>网络攻击</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网络攻击</tag>
+      
+    </tags>
     
   </entry>
   
@@ -62,6 +111,18 @@
     <content type="html"><![CDATA[<h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一 概述"></a>一 概述</h2><p>mongodb在高并发下保存失败，报了version error错误</p><p>来自同一用户的请求，A，B,A在未返回之前，B到来了，且A，B在几乎同时，去更新了同一个document。<br>处理流程较长的请求在处理过程中，如果有一个处理流程较短的请求，就有可能出现上述情况。</p><p>解决方案：<br>加了redlock锁</p><p>改进方案：</p><ol><li>找一个kafka, 将请求路径及参数发到kafka，然后由server订阅kafka的topic，topic可以是server+serverNum</li><li>让客户端做个限制，当之前的请求未返回时，不发送后续的请求。</li></ol>]]></content>
     
     
+    <categories>
+      
+      <category>系统设计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>系统设计</tag>
+      
+    </tags>
     
   </entry>
   

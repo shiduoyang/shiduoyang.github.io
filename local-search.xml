@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>bash-安装stablediffusion</title>
+    <link href="/2024/01/17/bash-%E5%AE%89%E8%A3%85stablediffusion-mac/"/>
+    <url>/2024/01/17/bash-%E5%AE%89%E8%A3%85stablediffusion-mac/</url>
+    
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span><br>/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span><br>brew install cmake protobuf rust python@3.10 git wget<br><span class="hljs-built_in">cd</span> ~/Documents<br><span class="hljs-built_in">mkdir</span> stabledf<br><span class="hljs-built_in">cd</span> stabledf<br>git config --blobal http.postBuffer 524288000<br>git <span class="hljs-built_in">clone</span> https://github.Com/AUTOMATIC1111/stable-diffusion-webui<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>bash</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>stablediffusion</tag>
+      
+      <tag>bash</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>golang-自学路径</title>
     <link href="/2024/01/17/golang-%E8%87%AA%E5%AD%A6%E8%B7%AF%E5%BE%84/"/>
     <url>/2024/01/17/golang-%E8%87%AA%E5%AD%A6%E8%B7%AF%E5%BE%84/</url>

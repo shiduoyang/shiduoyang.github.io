@@ -28,19 +28,53 @@ tags:
 3. 图形界面方面的支持不如其他语言
 
 ## 4. 语法
+[go语言之旅](!https://tour.go-zh.org/flowcontrol/11)
 
-1. 变量声明
-   ```golang
-   var a int = 1;
-   var b:=2;
-   ```
-2. 流程控制
-3. 函数
-4. 数据类型
-5. 接口和结构体
-6. 并发编程
-7. 错误处理和异常机制
-8. 包的导入与管理
-9.  指针与内存分配
-10. 方法定义于接收者？
-11. defer panic recover 用于异常处理与资源释放
+1. 变量声明 var a int = 1; b:=2; const Pi = 3.14;
+2. 数据类型:
+   bool
+   string
+   int  int8  int16  int32  int64
+   uint uint8 uint16 uint32 uint64 uintptr
+   float32 float64
+   complex64 complex128 复述
+   byte // uint8 的别名
+   rune // int32 的别名
+3. 数据结构
+   1. 指针：去掉指针运算的C指针
+   2. 结构体：结构体就是一组字段 type Person struct {x int; y int}; p:= Person{1,2} fmt.Println(p.x)
+   3. 数组：数组的大小固定 var a [10]int; primes := [6]int{2, 3, 5, 7, 11, 13}
+   4. 切片：为数组提供动态灵活的视角，就像数组的引用 var s []int = primes[1:4]; 
+      1. 定义：从数组中建立：var s []int = primes[1:4];
+      2. 定义：文法：q := []int{2, 3, 5, 7, 11, 13}
+      3. 定义：make: a := make([]int, 0, 5)  // len(a)=0 cap(a) = 5
+      4. 切片的容量，是切片第一个访问的数据起，一直到原数组的末尾包含的元素数
+   5. 映射：map[string]string{"a":"a"}
+4. 流程控制
+   1. 循环 for i:=0; i<10;i++ {} ;  for {} ;  for i,v := range(arr)
+   2. 判断 if a < 0 {}; if a:= 1+1; a > 1 {}
+   3. switch a {case a: xxxxx }
+   4. defer 将函数推迟到外层函数返回后执行。其参数会立即求值，但延迟调用。通常用来做函数结束时的必须动作.多个defer，后进先出
+5. 函数：独立的代码块
+   1. 函数作为参数传递
+   2. 闭包
+6. 方法：绑定到某类型上的函数 
+   1. type Person struct{}; 
+   2. func (p Person) say() string {return 'hi, im'+p.name}
+   3. func (p *Person) setName(s string) void {p.name = s}
+   4. 指针接收者访问调用者本身，值接收者访问调用者的副本
+   5. 选择指针作为函数接收者的原因
+      1. 避免复制
+      2. 可直接修改调用者的属性
+7. 接口：一组方法定义的集合
+   1. 类型通过实现接口定义的所有方法的形式来实现该接口，不需要通过implements显式声明
+   2. 空接口可以保存任何值，因为任何值都实现了0个方法
+   3. 类型断言 var i interface{} = MyStruct{"hello"}; s,ok:= i.(MyStruct); switch i.(type){case xxxx}
+   4. 
+8. 并发编程
+9.  错误处理和异常机制
+    1.  error 类型是一个内建接口
+10. 包的导入与管理
+11. 指针与内存分配
+12. 方法定义于接收者？
+13. defer panic recover 用于异常处理与资源释放

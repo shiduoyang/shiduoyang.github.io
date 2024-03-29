@@ -17,13 +17,19 @@
   
   
   <entry>
-    <title>script: 在nginx中配置一个http服务</title>
-    <link href="/2024/02/28/script-%E5%9C%A8nginx%E4%B8%AD%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1/"/>
-    <url>/2024/02/28/script-%E5%9C%A8nginx%E4%B8%AD%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1/</url>
+    <title>nginx-配置一个http服务</title>
+    <link href="/2024/02/28/nginx-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1/"/>
+    <url>/2024/02/28/nginx-%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1/</url>
     
     <content type="html"><![CDATA[<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> serverPort = <span class="hljs-number">9006</span>;<br><span class="hljs-keyword">const</span> serverUrl = <span class="hljs-string">&#x27;dev-fb-instant.bubbleshootermvp.com&#x27;</span>;<br><span class="hljs-keyword">const</span> conf = <span class="hljs-string">`server &#123;</span><br><span class="hljs-string">    listen 80;</span><br><span class="hljs-string">    server_name <span class="hljs-subst">$&#123;serverUrl&#125;</span>;</span><br><span class="hljs-string">    client_max_body_size 10m;</span><br><span class="hljs-string">    charset utf-8;</span><br><span class="hljs-string"></span><br><span class="hljs-string">    gzip on;</span><br><span class="hljs-string">    gzip_min_length 1k;</span><br><span class="hljs-string">    gzip_buffers 4 16k;</span><br><span class="hljs-string">    gzip_http_version 1.0;</span><br><span class="hljs-string">    gzip_comp_level 2;</span><br><span class="hljs-string">    gzip_types text/plain application/javascript application/x-javascript text/css text/javascript application/xml application/json;</span><br><span class="hljs-string">    gzip_vary on;</span><br><span class="hljs-string">    gzip_proxied off;</span><br><span class="hljs-string">    gzip_disable msie6;</span><br><span class="hljs-string"></span><br><span class="hljs-string">    location / &#123;</span><br><span class="hljs-string">        proxy_pass http://127.0.0.1:<span class="hljs-subst">$&#123;serverPort&#125;</span>;</span><br><span class="hljs-string">        proxy_set_header Host $http_host;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">&#125;`</span>;<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>nginx</tag>
+      
+    </tags>
     
   </entry>
   

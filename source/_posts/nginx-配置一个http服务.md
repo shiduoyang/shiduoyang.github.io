@@ -1,7 +1,8 @@
 ---
-title: 'script: 在nginx中配置一个http服务'
+title: 'nginx-配置一个http服务'
 date: 2024-02-28 17:05:30
 tags:
+    - nginx
 ---
 
 

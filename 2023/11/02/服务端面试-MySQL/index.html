@@ -16,22 +16,21 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数据模型：  如果需要建立复杂的关系模型，比如多对多关系或者表连接，使用mysql。mysql提供了强大的sql查询语言，能够处理复杂的关系查询。 如果需要存储动态和非结构化的数据，用mongodb，mongodb的文档模型可以轻松的存储和查询各种类型的数据。  数据量和性能：3. 如果需要处理大量的结构化数据，且需要高性能和包并发处理，那么用mysql。mysql使用索引和优化技术提供快速的查询">
+    <meta name="description" content="bin日志与redolog的区别：  bin log 会记录所有与数据库有关的日志记录，包括 InnoDB、MyISAM 等存储引擎的日志，而 redo log 只记 InnoDB 存储引擎的日志。 记录的内容不同，bin log 记录的是关于一个事务的具体操作内容，即该日志是逻辑日志。而 redo log 记录的是关于每个页（Page）的更改的物理情况。 写入的时间不同，bin log 仅在事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mongodb与mysql如何选择">
-<meta property="og:url" content="https://shiduoyang.github.io/2023/10/17/mongodb%E4%B8%8Emysql%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/index.html">
+<meta property="og:title" content="服务端面试一-MySQL">
+<meta property="og:url" content="https://shiduoyang.github.io/2023/11/02/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-MySQL/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="数据模型：  如果需要建立复杂的关系模型，比如多对多关系或者表连接，使用mysql。mysql提供了强大的sql查询语言，能够处理复杂的关系查询。 如果需要存储动态和非结构化的数据，用mongodb，mongodb的文档模型可以轻松的存储和查询各种类型的数据。  数据量和性能：3. 如果需要处理大量的结构化数据，且需要高性能和包并发处理，那么用mysql。mysql使用索引和优化技术提供快速的查询">
+<meta property="og:description" content="bin日志与redolog的区别：  bin log 会记录所有与数据库有关的日志记录，包括 InnoDB、MyISAM 等存储引擎的日志，而 redo log 只记 InnoDB 存储引擎的日志。 记录的内容不同，bin log 记录的是关于一个事务的具体操作内容，即该日志是逻辑日志。而 redo log 记录的是关于每个页（Page）的更改的物理情况。 写入的时间不同，bin log 仅在事务">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-17T05:49:43.000Z">
-<meta property="article:modified_time" content="2023-11-02T08:58:45.445Z">
+<meta property="article:published_time" content="2023-11-02T09:03:44.000Z">
+<meta property="article:modified_time" content="2023-11-09T08:23:06.318Z">
 <meta property="article:author" content="杨士铎">
-<meta property="article:tag" content="系统设计">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>mongodb与mysql如何选择 - shiduoyang.note</title>
+  <title>服务端面试一-MySQL - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="mongodb与mysql如何选择"></span>
+            <span id="subtitle" data-typed-text="服务端面试一-MySQL"></span>
           
         </div>
 
@@ -237,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-17 13:49" pubdate>
-          2023年10月17日 下午
+        <time datetime="2023-11-02 17:03" pubdate>
+          2023年11月2日 下午
         </time>
       </span>
     
@@ -249,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          275 字
+          4.5k 字
         
       </span>
     
@@ -260,7 +259,7 @@
         
         
         
-          3 分钟
+          38 分钟
         
       </span>
     
@@ -305,17 +304,93 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">mongodb与mysql如何选择</h1>
+            <h1 id="seo-header">服务端面试一-MySQL</h1>
             
             
               <div class="markdown-body">
                 
-                <p>数据模型：</p>
+                <p>bin日志与redolog的区别：</p>
 <ol>
-<li>如果需要建立复杂的关系模型，比如多对多关系或者表连接，使用mysql。mysql提供了强大的sql查询语言，能够处理复杂的关系查询。</li>
-<li>如果需要存储动态和非结构化的数据，用mongodb，mongodb的文档模型可以轻松的存储和查询各种类型的数据。</li>
+<li>bin log 会记录所有与数据库有关的日志记录，包括 InnoDB、MyISAM 等存储引擎的日志，而 redo log 只记 InnoDB 存储引擎的日志。</li>
+<li>记录的内容不同，bin log 记录的是关于一个事务的具体操作内容，即该日志是逻辑日志。而 redo log 记录的是关于每个页（Page）的更改的物理情况。</li>
+<li>写入的时间不同，bin log 仅在事务提交前进行提交，也就是只写磁盘一次。而在事务进行的过程中，却不断有 redo ertry 被写入 redo log 中。</li>
+<li>写入的方式也不相同，redo log 是循环写入和擦除，bin log 是追加写入，不会覆盖已经写的文件。</li>
 </ol>
-<p>数据量和性能：<br>3. 如果需要处理大量的结构化数据，且需要高性能和包并发处理，那么用mysql。mysql使用索引和优化技术提供快速的查询和事务处理。<br>4. 如果需要处理大量的非结构话数据，且需要水平扩展能力，用mongodb。mongodb使用分片技术来实现水平扩展，可以处理大规模的数据和高并发请求。</p>
+<p>更新sql的执行过程</p>
+<ol>
+<li>找到修改的行后，读到内存，修改内容并同步到内存。</li>
+<li>innodb引擎写redolog，并将这行记录的状态改为prepare</li>
+<li>server层记录binlog</li>
+<li>提交事务，并在redolog中将该行的状态改为commit</li>
+</ol>
+<p>那为什么要两阶段提交呢？<br>为什么要两阶段提交呢？直接提交不行吗？</p>
+<p>我们可以假设不采用两阶段提交的方式，而是采用“单阶段”进行提交，即要么先写入 redo log，后写入 binlog；要么先写入 binlog，后写入 redo log。这两种方式的提交都会导致原先数据库的状态和被恢复后的数据库的状态不一致。</p>
+<p>优化mysql慢查询</p>
+<ul>
+<li>避免不必要的列</li>
+<li>分页的优化：延迟关联，书签方式</li>
+<li>索引优化：使用覆盖索引，联合索引时符合最左前缀匹配原则，避免用!&#x3D; &lt; &gt;, 避免用函数运算，文本查询通配符尽量避免%xxx%</li>
+<li>join优化：尽量用join替代子查询，子查询会创建一张临时表；关联查询时用小表驱动大表，即小left join 大</li>
+<li>排序优化：设计索引时候，尽量既能满足查询又能满足排序</li>
+</ul>
+<p>explain的type字段<br>type 列：最重要的列之一。表示关联类型或访问类型，即 MySQL 决定如何查找表中的行。<br>性能从最优到最差分别为：system &gt; const &gt; eq_ref &gt; ref &gt; fulltext &gt; ref_or_null &gt; index_merge &gt; unique_subquery &gt; index_subquery &gt; range &gt; index &gt; ALL</p>
+<ul>
+<li>system<br>system：当表仅有一行记录时(系统表)，数据量很少，往往不需要进行磁盘 IO，速度非常快</li>
+<li>const<br>const：表示查询时命中 primary key 主键或者 unique 唯一索引，或者被连接的部分是一个常量(const)值。这类扫描效率极高，返回数据量少，速度非常快。</li>
+<li>eq_ref<br>eq_ref：查询时命中主键primary key 或者 unique key索引， type 就是 eq_ref。</li>
+<li>ref_or_null<br>ref_or_null：这种连接类型类似于 ref，区别在于 MySQL会额外搜索包含NULL值的行。</li>
+<li>index_merge<br>index_merge：使用了索引合并优化方法，查询使用了两个以上的索引。</li>
+<li>unique_subquery<br>unique_subquery：替换下面的 IN子查询，子查询返回不重复的集合。</li>
+<li>index_subquery<br>index_subquery：区别于unique_subquery，用于非唯一索引，可以返回重复值。</li>
+<li>range<br>range：使用索引选择行，仅检索给定范围内的行。简单点说就是针对一个有索引的字段，给定范围检索数据。在where语句中使用 bettween…and、&lt;、&gt;、&lt;&#x3D;、in 等条件查询 type 都是 range。</li>
+<li>index<br>index：Index 与ALL 其实都是读全表，区别在于index是遍历索引树读取，而ALL是从硬盘中读取。</li>
+<li>ALL 全表扫描。</li>
+</ul>
+<p>Extra 列：显示不适合在其它列的额外信息，虽然叫额外，但是也有一些重要的信息：<br>Using index：表示 MySQL 将使用覆盖索引，以避免回表<br>Using where：表示会在存储引擎检索之后再进行过滤<br>Using temporary ：表示对查询结果排序时会使用一个临时表。</p>
+<p>索引失效的场景：</p>
+<ol>
+<li>不满足最左前缀匹配原则</li>
+<li>查询条件用了&gt;&lt;!&#x3D;,函数计算</li>
+<li>隐式类型转换，如查询条件的值是个字符串，但没有用引号包裹</li>
+<li>mysql优化器判断全表扫描比用索引还快</li>
+</ol>
+<p>聚簇索引和非聚簇索引的区别</p>
+<ol>
+<li>聚簇索引叶子结点保存的是数据行，非聚簇索引叶子结点保存的不是数据行，而是主键的ID</li>
+</ol>
+<p>回表查询<br>在辅助索引上查出来主键值后，在主键索引上再查一遍得到数据行的操作，叫回表</p>
+<p>覆盖索引<br>在辅助索引里面，不管是单列索引还是联合索引，如果 select 的数据列只用辅助索引中就能够取得，不用去查主键索引，这时候使用的索引就叫做覆盖索引，避免了回表。</p>
+<p>最左前缀匹配：<br>用name,age建立联合索引，建立索引树时，当name 相等的时候，age才是有序的。<br>这个时候我们使用 where name&#x3D; ‘张三‘ and age &#x3D; ‘20 ‘去查询数据的时候， B+Tree 会优先比较 name 来确定下一步应该搜索的方向，往左还是往右。如果 name 相同的时候再比较 age。但是如果查询条件没有 name，就不知道下一步应该查哪个 节点，因为建立搜索树的时候 name 是第一个比较因子，所以就没用上索引。</p>
+<p>索引下推优化<br>联合索引遇到非等值查询时终止了，之前需要分别回表查询，但有了索引下推，可以在联合索引里判定。<br>如where a like ‘a%’ and b&gt;0 and c &gt;0,且建立了联合索引a,b,c<br>索引下推之前：引擎层like ‘a%’ and b&gt;0 &#x3D;&gt; 回表查询<br>索引下推之前：引擎层like ‘a%’ and b&gt;0 and c &gt;0 &#x3D;&gt; 回表查询</p>
+<p>锁的分类：<br>如果按锁粒度划分，有以下 3 种：<br>表锁：开销小，加锁快；锁定力度大，发生锁冲突概率高，并发度最低;不会出现死锁。<br>行锁：开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率低，并发度高。<br>页锁：开销和加锁速度介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般<br>如果按照兼容性，有两种，<br>共享锁（S Lock）,也叫读锁（read lock），相互不阻塞。<br>排他锁（X Lock），也叫写锁（write lock），排它锁是阻塞的，在一定时间内，只有一个请求能执行写入，并阻止其它锁读取正在写入的数据。</p>
+<p>说说 InnoDB 里的行锁实现<br>Record Lock 记录锁<br>Gap Lock 间隙锁：间隙指的是两个记录之间逻辑上尚未填入数据的部分,是一个左开右开空间，如 1,6都有数据，那么(1,6)是间隙<br>Next-key Lock 临键锁：临键指的是间隙加上它右边的记录组成的左开右闭区间<br>Insert Intention Lock 插入意向锁，锁的是间隙。 一个事务在插入一条记录时需要判断一下插入位置是不是被别的事务加了意向锁 ，如果有的话，插入操作需要等待，直到拥有 gap 锁 的那个事务提交。</p>
+<p>当使用唯一性索引，等值查询匹配到一条记录的时候，临键锁(Next-Key Locks)会退化成记录锁；没有匹配到任何记录的时候，退化成间隙锁。</p>
+<p>那 ACID 靠什么保证的呢？<br>MySQL 通过事务管理和持久性存储机制来确保 ACID（原子性、一致性、隔离性和持久性）。<br>01、原子性（Atomicity），undo log 记录了事务发生之前的数据，如果事务失败，InnoDB 会根据 undo log 回滚数据。<br>02、一致性（Consistency）一致性是 ACID 的目的，也就是说，只要保证原子性、隔离性、持久性，自然也就保证了数据的一致性。<br>03、隔离性 (Isolation) MVCC (多版本并发控制) 机制来处理并发事务，确保每个事务都有自己的数据版本。事务查看数据时，数据所处的状态要么是另一事务修改它之前的状态，要么是另一事务修改它之后的状态，事务不会查看到中间状态的数据。<br>在 MVCC 中，每次更新记录时，都会生成记录的一个新版本，而不是覆盖老版本。每个版本都会有两个额外的属性：一个表示版本的创建时间（或事务ID），另一个表示版本的过期时间（或下一个版本的事务ID）。<br>当事务尝试读取记录时，它会看到该事务开始时有效的那个版本。<br>MVCC 通过提供数据版本来支持事务的隔离性。不同的事务会看到不同版本的数据行，这取决于事务的开始时间和它的隔离级别。<br>04、持久性 (Durability)，由 MySQL 的存储引擎（如InnoDB）通过写入磁盘来确保。即使在系统崩溃之后，已提交事务的更改也不会丢失。<br>InnoDB 使用“redo log”来记录数据的更改，在系统崩溃后，redo log 可用于恢复数据。<br>redo log 是一种物理日志，记录了对数据页的物理更改。当事务进行写操作时，InnoDB 首先会写入 redo log，并不会立即修改数据文件。这种写入方式被称为“write-ahead logging”（先写日志）。</p>
+<p>高可用：</p>
+<p>读写分离</p>
+<p>那读写分离的分配怎么实现呢？</p>
+<ol>
+<li>程序代码封装<br>程序代码封装指在代码中抽象一个数据访问层（所以有的文章也称这种方式为 “中间层封装” ） ，实现读写操作分离和数据库服务器连接的管理<br>如TDDL (Taobao Distributed Data Layer, 外号：头都大了）、基于 Hibernate 进行简单封装</li>
+<li>中间件封装<br>中间件封装指的是独立一套系统出来，实现读写操作分离和数据库服务器连接的管理。中间件对业务服务器提供 SQL 兼容的协议，业务服务器无须自己进行读写分离。<br>对于业务服务器来说，访问中间件和访问数据库没有区别，事实上在业务服务器看来，中间件就是一个数据库服务器。</li>
+</ol>
+<p>主从复制原理了解吗？<br>master 数据写入，更新 binlog<br>master 创建一个 dump 线程向 slave 推送 binlog<br>slave 连接到 master 的时候，会创建一个 IO 线程接收 binlog，并记录到 relay log 中继日志中<br>slave 再开启一个 sql 线程读取 relay log 事件并在 slave 执行，完成同步<br>slave 记录自己的 binglog</p>
+<p>主从同步延迟怎么处理<br>主从同步延迟的原因<br>一个服务器开放Ｎ个链接给客户端来连接的，这样有会有大并发的更新操作, 但是从服务器的里面读取 binlog 的线程仅有一个，当某个 SQL 在从服务器上执行的时间稍长 或者由于某个 SQL 要进行锁表就会导致，主服务器的 SQL 大量积压，未被同步到从服务器里。这就导致了主从不一致， 也就是主从延迟。</p>
+<p>解决：</p>
+<ol>
+<li>写操作后的读操作指定发给数据库主服务器</li>
+<li>读从机失败后再读一次主机<br>这就是通常所说的 “二次读取” ，二次读取和业务无绑定，只需要对底层数据库访问的 API 进行封装即可，实现代价较小，不足之处在于如果有很多二次读取，将大大增加主机的读操作压力。例如，黑客暴力破解账号，会导致大量的二次读取操作，主机可能顶不住读操作的压力从而崩溃。</li>
+<li>关键业务读写操作全部指向主机，非关键业务采用读写分离</li>
+</ol>
+<p>你们一般是怎么分库的呢</p>
+<ol>
+<li>垂直分库：拆表，不同的表在不同库</li>
+<li>水平分库：拆记录，不同行分到不同的库中</li>
+</ol>
+<p>那你们是怎么分表的？</p>
+<ol>
+<li>垂直：拆字段，不同字段分到不同的表中</li>
+<li>水平：拆行，不同行分到不同的表中</li>
+</ol>
 
                 
               </div>
@@ -324,34 +399,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="category-chain-item">系统设计</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="print-no-link">#系统设计</a>
-      
-    </div>
   
 </div>
 
@@ -361,8 +408,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>mongodb与mysql如何选择</div>
-      <div>https://shiduoyang.github.io/2023/10/17/mongodb与mysql如何选择/</div>
+      <div>服务端面试一-MySQL</div>
+      <div>https://shiduoyang.github.io/2023/11/02/服务端面试-MySQL/</div>
     </div>
     <div class="license-meta">
       
@@ -374,7 +421,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月17日</div>
+          <div>2023年11月2日</div>
         </div>
       
       
@@ -406,9 +453,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/02/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-MySQL/" title="服务端面试一-MySQL">
+                      <a href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%BA%8C-mongodb/" title="服务端面试二:mongodb">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">服务端面试一-MySQL</span>
+                        <span class="hidden-mobile">服务端面试二:mongodb</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -416,8 +463,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/26/http%E4%B9%8Bheaders%E4%B8%8Ehttps%E6%A6%82%E8%BF%B0/" title="http之headers与https概述">
-                        <span class="hidden-mobile">http之headers与https概述</span>
+                      <a href="/2023/10/17/mongodb%E4%B8%8Emysql%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/" title="mongodb与mysql如何选择">
+                        <span class="hidden-mobile">mongodb与mysql如何选择</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

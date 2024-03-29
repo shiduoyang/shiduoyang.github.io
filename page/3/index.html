@@ -253,6 +253,563 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/09/19/kafka%E6%A6%82%E8%BF%B0/" target="_self">
+          kafka概述
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/19/kafka%E6%A6%82%E8%BF%B0/" target="_self">
+        <div>
+          broker 服务节点topic partition topicoffset在partition中的序号副本record: 包含  topic key value kafka中zookeeper的作用 作为kafka集群信息和状态的保存者，并能将变化及时通知出去。 1234567891011121314151617181920212223242526272829303132333435363738
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-19 17:50" pubdate>
+              2023-09-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kafka/">#Kafka</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8Bmongodb%E4%BF%9D%E5%AD%98%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/" target="_self">
+          记一次高并发下mongodb保存失败问题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/19/%E8%AE%B0%E4%B8%80%E6%AC%A1%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8Bmongodb%E4%BF%9D%E5%AD%98%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/" target="_self">
+        <div>
+          一 概述mongodb在高并发下保存失败，报了version error错误 来自同一用户的请求，A，B,A在未返回之前，B到来了，且A，B在几乎同时，去更新了同一个document。处理流程较长的请求在处理过程中，如果有一个处理流程较短的请求，就有可能出现上述情况。 解决方案：加了redlock锁 改进方案：  找一个kafka, 将请求路径及参数发到kafka，然后由server订阅kafka
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-19 17:32" pubdate>
+              2023-09-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="category-chain-item">系统设计</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">#系统设计</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/15/aws%E6%9C%8D%E5%8A%A1%E5%85%A8%E6%99%AF%E6%A6%82%E8%BF%B0/" target="_self">
+          aws服务全景概述
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/15/aws%E6%9C%8D%E5%8A%A1%E5%85%A8%E6%99%AF%E6%A6%82%E8%BF%B0/" target="_self">
+        <div>
+          一：概述二：各产品 数据库产品 关系型 amazon aurora: 与 MySQL 和 PostgreSQL 兼容的关系数据库，专为云而打造,性能与商用数据库相当，成本只有1&#x2F;10 amazon rds：Amazon Relational Database Service，关系型数据库，支持多种数据引擎，如MySQL、PostgreSQL、Oracle、SQL Server 和 Ama
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-15 17:35" pubdate>
+              2023-09-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Aws/" class="category-chain-item">Aws</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Aws/">#Aws</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/15/etcd%E6%A6%82%E8%BF%B0/" target="_self">
+          etcd概述
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/15/etcd%E6%A6%82%E8%BF%B0/" target="_self">
+        <div>
+          一：概述etcd 是一个分布式键值对存储，设计用来可靠而快速的保存关键数据并提供访问。通过分布式锁，leader选举和写屏障(write barriers)来实现可靠的分布式协作。etcd集群是为高可用，持久性数据存储和检索而准备。 二：如何使用以mac，本地集群为例： 123456789101112131415brew search etcd;brew install etcd; ## 安装br
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-15 16:36" pubdate>
+              2023-09-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Etcd/" class="category-chain-item">Etcd</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kubernetes/">#Kubernetes</a>
+            
+              <a href="/tags/Docker/">#Docker</a>
+            
+              <a href="/tags/Etcd/">#Etcd</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/15/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-kubernetes%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97/" target="_self">
+          读书笔记-kubernetes中文指南
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/15/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-kubernetes%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97/" target="_self">
+        <div>
+          一：容器，容器化，docker,到kubernetes 容器：想象一个集装箱，里面包含有应用程序运行所需的所有组件，且这个集装箱可以跨平台的运行。 容器化：将应用程序放在容器中，以容器为单位进行管理，实现跨平台运行的这种思想，叫做容器化 docker：docker是一个容器化工具，用于打包和运行容器 kubernetes：kubernetes用于对若干容器组成的集群的管理  二：云原生概念与云原生
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-15 14:39" pubdate>
+              2023-09-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kubernetes/">#Kubernetes</a>
+            
+              <a href="/tags/Docker/">#Docker</a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E9%81%93%E5%BE%B7%E7%BB%8F/" target="_self">
+          读书笔记-道德经
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/14/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E9%81%93%E5%BE%B7%E7%BB%8F/" target="_self">
+        <div>
+          一：概述道德经，分为道经和德经，内容主要是两块，一块是帝王治理天下之术，一块是为人处世之道。 二：节选 道可道，非常道，名可名，非常名。无名天地之使，有名天地之母。 天下皆知美之为美，斯恶已。皆知善之为善，斯不善已。故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教；万物作焉而不辞，生而不有，危而不持，功成而弗居，是以不去。 上善若水。水善利万物而不争，处
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-14 16:58" pubdate>
+              2023-09-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/14/shell%E6%A6%82%E8%BF%B0/" target="_self">
+          shell命令概述
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/14/shell%E6%A6%82%E8%BF%B0/" target="_self">
+        <div>
+          一 shell概述shell是你（用户）和Linux（或者更准确的说，是你和Linux内核）之间的接口程序。你在提示符下输入的每个命令都由shell先解释然后传给Linux内核。shell 是一个命令语言解释器（command-language interpreter）。拥有自己内建的 shell 命令集。此外，shell也能被系统中其他有效的Linux 实用程序和应用程序（utilities a
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-14 15:00" pubdate>
+              2023-09-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Shell/" class="category-chain-item">Shell</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Shell/">#Shell</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/11/rabbitMQ%E6%A6%82%E8%BF%B0/" target="_self">
+          rabbitMQ概述
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/rabbitMQ%E6%A6%82%E8%BF%B0/" target="_self">
+        <div>
+          一：概述RabbitMQ是一个开源的消息代理软件，用于实现高级消息队列协议（AMQP）和其他消息传递协议。它为应用程序提供了一种可靠、异步的消息传递机制，允许不同的组件之间进行通信。在本文中，我们将深入了解RabbitMQ，包括它的基本概念、使用方式以及其组成和架构。 rabbitMQ用来解耦应用程序组件，从而太高可伸缩性与可维护性。 二：使用RabbitMQ的使用方式非常简单，它基于以下几个核心
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-11 17:30" pubdate>
+              2023-09-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/RabbitMQ/" class="category-chain-item">RabbitMQ</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RabbitMQ/">#RabbitMQ</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/09/11/node-js%E5%8F%91%E6%95%A3%E9%97%AE%E9%A2%98-%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_self">
+          node.js发散问题:进程,线程与协程的区别
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/node-js%E5%8F%91%E6%95%A3%E9%97%AE%E9%A2%98-%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_self">
+        <div>
+          进程（Process）：   进程是计算机中的一个独立执行单位，它有自己的独立内存空间和资源。 每个进程都有一个独立的地址空间，不同进程之间的数据不能直接共享，通信需要特定的机制（如进程间通信IPC）。 进程之间的切换开销相对较高，因为需要保存和恢复进程的状态。 进程是多任务处理的基本单位，通常代表一个运行的程序。   线程（Thread）：   线程是进程内的一个执行单元，多个线程可以共享同一
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-11 17:23" pubdate>
+              2023-09-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Node-js/" class="category-chain-item">Node.js</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Node-js/">#Node.js</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/09/11/node-js%E5%AD%90%E7%BA%BF%E7%A8%8B/" target="_self">
           node.js子线程
         </a>
@@ -308,560 +865,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/11/node-js%E5%AD%90%E8%BF%9B%E7%A8%8B/" target="_self">
-          node.js子进程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/node-js%E5%AD%90%E8%BF%9B%E7%A8%8B/" target="_self">
-        <div>
-          一： 子进程概述在Node.js中，子进程是指由主Node.js进程启动的独立的操作系统进程。这些子进程可以执行独立的任务、脚本或外部命令，与主进程并行运行，从而充分利用多核处理器和执行并发任务。Node.js提供了child_process模块，其中包含多种方法来创建、控制和与子进程进行交互。以下是一些常见的用例：  执行外部命令： child_process.spawn或child_proce
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-11 17:00" pubdate>
-              2023-09-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Node-js/" class="category-chain-item">Node.js</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Node-js/">#Node.js</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/11/node-js%E6%A8%A1%E5%9D%97/" target="_self">
-          node.js模块
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/node-js%E6%A8%A1%E5%9D%97/" target="_self">
-        <div>
-          一：概述本文介绍node.js的常见模块 二：核心模块列表 events   http：用于创建HTTP服务器和处理HTTP请求和响应的模块。 https：与http模块类似，但用于创建HTTPS服务器和处理HTTPS请求和响应。 fs：用于文件系统操作，包括读取文件、写入文件、创建文件夹等。 path：提供与文件路径和目录路径相关的实用功能，用于处理文件路径的构造和解析。 os：用于访问操作系统
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-11 12:06" pubdate>
-              2023-09-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Node-js/" class="category-chain-item">Node.js</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Node-js/">#Node.js</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/11/http%E7%8A%B6%E6%80%81%E7%A0%81%E8%AE%B0%E5%BD%95/" target="_self">
-          http状态码记录
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/http%E7%8A%B6%E6%80%81%E7%A0%81%E8%AE%B0%E5%BD%95/" target="_self">
-        <div>
-          一：概述HTTP 状态码由三个十进制数字组成，第一个十进制数字定义了状态码的类型。响应分为五类：信息响应(100–199)成功响应(200–299)重定向(300–399)客户端错误(400–499)服务器错误 (500–599) 二：详解2.1 100-199信息相应 100	Continue	继续。客户端应继续其请求 101	Switching Protocols	切换协议。服务器根据客户端的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-11 10:24" pubdate>
-              2023-09-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/HTTP/" class="category-chain-item">HTTP</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/HTTP/">#HTTP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/09/node-js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" target="_self">
-          node.js事件循环
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/09/node-js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" target="_self">
-        <div>
-          一：概述node.js的事件循环，是node.js非阻塞IO的原因，因为非阻塞IO，node.js获得了高性能。 二：事件循环的阶段事件循环的每一个阶段，都有一个队列来执行回调。 process.nextTick队列：执行process.nextTick回调微任务队列：执行微任务回调，如promise  timer ： 处理 setTimeout 和setInterval 回调 pending c
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-09 22:49" pubdate>
-              2023-09-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Node-js/" class="category-chain-item">Node.js</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Node-js/">#Node.js</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/08/react%E6%A6%82%E8%BF%B0/" target="_self">
-          react概述
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/08/react%E6%A6%82%E8%BF%B0/" target="_self">
-        <div>
-          一：概述react哲学：页面由组件整合而来 二：相关概念 如何创建和嵌套组件：12345678910111213function MyButton() &#123;  return (    &lt;button&gt;I&#x27;m a button&lt;/button&gt;  );&#125;export default function MyApp() &#123;  return (
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-08 16:40" pubdate>
-              2023-09-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/React/" class="category-chain-item">React</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/React/">#React</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/08/%E9%80%9A%E7%94%A8%E5%9E%8B%E6%94%AF%E4%BB%98%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" target="_self">
-          通用型支付服务设计概述
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/08/%E9%80%9A%E7%94%A8%E5%9E%8B%E6%94%AF%E4%BB%98%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E6%A6%82%E8%BF%B0/" target="_self">
-        <div>
-          日前应公司业务发展的要求，对支付逻辑进行了拆分，形成了独立支付服务。本文基于服务拆分的实践，探讨建立独立支付服务的思路。文末的关键编码，为处理后的伪代码，与实际项目无关，特此声明。 一：什么是独立支付服务假设有三个不同的项目A,B,C，都需要接入支付宝H5支付功能。按照以往的开发模式，这三个项目需要分别开发一套与支付宝的对话逻辑，包括下单、支付回调、订单支付状态查询等。假设这三个项目，现在要接入微
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-08 15:20" pubdate>
-              2023-09-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="category-chain-item">系统设计</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">#系统设计</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/08/%E4%B8%91%E9%99%8B%E7%9A%84%E4%B8%AD%E5%9B%BD%E4%BA%BA/" target="_self">
-          丑陋的中国人
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/08/%E4%B8%91%E9%99%8B%E7%9A%84%E4%B8%AD%E5%9B%BD%E4%BA%BA/" target="_self">
-        <div>
-          一：概述我们常常颂扬中国人的美好品德，但人无完人，民族也是如此。这本书就列举出了中国人的一些不足，读完之后我感觉振聋发聩，暗自告诫自己，在以后的生活中，需要常常自省。 二：笔记2.1 极端自傲与自卑，但缺乏自尊造成中国人两个极端，不够平衡。 一方面是绝对的自卑，一方面是绝对的自傲。自卑的时候成了奴才，自傲的时候成了主人，却独独没有自尊。这以至于中国人很难有平等观念，你不是我的主人，我就得是你的主人
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-08 13:44" pubdate>
-              2023-09-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/08/%E6%9B%BE%E5%9B%BD%E8%97%A9-%E5%8F%88%E7%AC%A8%E5%8F%88%E6%85%A2%E5%B9%B3%E5%A4%A9%E4%B8%8B/" target="_self">
-          曾国藩-又笨又慢平天下
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/08/%E6%9B%BE%E5%9B%BD%E8%97%A9-%E5%8F%88%E7%AC%A8%E5%8F%88%E6%85%A2%E5%B9%B3%E5%A4%A9%E4%B8%8B/" target="_self">
-        <div>
-          一：概述 曾国藩，是近代儒家文化的集大成者。 二：读后感  勤奋，极度的勤奋是成功的基石 贵人的赏识是一生中难得的机遇 纵有万千才华，也要与同僚打成一片 失败，连续的失败是对心灵考验，通过了能获得极大的提升，通不过有可能因此丧命 舍小义成全大义 稳，稳扎稳打，稳中求胜，稳到没有破绽  笨而极致的勤奋；慢却稳定的前进，是这本书对我最重要的教育。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-08 13:43" pubdate>
-              2023-09-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/09/07/ES6-ES13/" target="_self">
-          ES6-ES13
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/07/ES6-ES13/" target="_self">
-        <div>
-          一：概述ES6 ES7 ES8的名称由来是啥？  ES6 就是 ES2015 ES7 就是 ES2016 ES8 就是 ES2017。。。  二：各版本的特性 ES6的新特性 let const 块作用域 箭头函数 for of  Map 和 Set class Promise 函数参数默认值 … String.includes startsWith endsWith Array.find fin
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-07 11:53" pubdate>
-              2023-09-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Javascript/" class="category-chain-item">Javascript</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Javascript/">#Javascript</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -33,3 +33,4 @@ Jira –敏捷的团队协作工具
 wiki -文档管理工具
 Promtheus –连续监控工具
 Selenium/jmeter –连续测试（CT）工具
+spug - 开源运维平台

@@ -16,22 +16,21 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="broker 服务节点topic partition topicoffset在partition中的序号副本record: 包含  topic key value kafka中zookeeper的作用 作为kafka集群信息和状态的保存者，并能将变化及时通知出去。 1234567891011121314151617181920212223242526272829303132333435363738">
+    <meta name="description" content="是什么amazon simple queue service 亚马逊提供的完全托管式消息队列服务 特性 完全托管 可靠性 持久性 分布式，可扩展性 消息队列模型 消息确认机制  适用场景 与rabbitMQ相似  使用方法1234567891011121314151617181920212223const AWS &#x3D; require(&amp;#x27;aws-sdk&amp;#x27;);&#x2F;&#x2F; 设置 AWS 配">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kafka概述">
-<meta property="og:url" content="https://shiduoyang.github.io/2023/09/19/kafka%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="中间件-sqs">
+<meta property="og:url" content="https://shiduoyang.github.io/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6-sqs/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="broker 服务节点topic partition topicoffset在partition中的序号副本record: 包含  topic key value kafka中zookeeper的作用 作为kafka集群信息和状态的保存者，并能将变化及时通知出去。 1234567891011121314151617181920212223242526272829303132333435363738">
+<meta property="og:description" content="是什么amazon simple queue service 亚马逊提供的完全托管式消息队列服务 特性 完全托管 可靠性 持久性 分布式，可扩展性 消息队列模型 消息确认机制  适用场景 与rabbitMQ相似  使用方法1234567891011121314151617181920212223const AWS &#x3D; require(&amp;#x27;aws-sdk&amp;#x27;);&#x2F;&#x2F; 设置 AWS 配">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-19T09:50:12.000Z">
-<meta property="article:modified_time" content="2023-10-09T01:15:42.993Z">
+<meta property="article:published_time" content="2024-03-29T06:32:26.000Z">
+<meta property="article:modified_time" content="2024-03-29T06:36:46.510Z">
 <meta property="article:author" content="杨士铎">
-<meta property="article:tag" content="Kafka">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>kafka概述 - shiduoyang.note</title>
+  <title>中间件-sqs - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="kafka概述"></span>
+            <span id="subtitle" data-typed-text="中间件-sqs"></span>
           
         </div>
 
@@ -237,8 +236,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-09-19 17:50" pubdate>
-          2023年9月19日 下午
+        <time datetime="2024-03-29 14:32" pubdate>
+          2024年3月29日 下午
         </time>
       </span>
     
@@ -249,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.8k 字
         
       </span>
     
@@ -260,7 +259,7 @@
         
         
         
-          21 分钟
+          15 分钟
         
       </span>
     
@@ -305,27 +304,27 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">kafka概述</h1>
+            <h1 id="seo-header">中间件-sqs</h1>
             
             
               <div class="markdown-body">
                 
-                <p>broker 服务节点<br>topic partition</p>
-<p>topic<br>offset在partition中的序号<br>副本<br>record: 包含  topic key value</p>
-<p>kafka中zookeeper的作用</p>
-<p>作为kafka集群信息和状态的保存者，并能将变化及时通知出去。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Producer.ts</span><br><span class="hljs-comment">// 声明发送的topic，然后send</span><br><br><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> kafka <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;kafka-node&#x27;</span><br><br><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> kafka.<span class="hljs-title class_">KafkaClient</span>(&#123;<span class="hljs-attr">kafkaHost</span>: <span class="hljs-string">&#x27;localhost:9092&#x27;</span>&#125;)<br><br><span class="hljs-keyword">const</span> producer = <span class="hljs-keyword">new</span> kafka.<span class="hljs-title class_">HighLevelProducer</span>(client)<br>producer.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;ready&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Kafka Producer is connected and ready.&#x27;</span>)<br>&#125;)<br><br><span class="hljs-comment">// For this demo we just log producer errors to the console.</span><br>producer.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(error)<br>&#125;)<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">sendRecord</span> = (<span class="hljs-params">objData, cb</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> buffer = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(objData))<br><br>  <span class="hljs-comment">// Create a new payload</span><br>  <span class="hljs-keyword">const</span> record = [<br>    &#123;<br>      <span class="hljs-attr">topic</span>: <span class="hljs-string">&#x27;webevents.dev&#x27;</span>,<br>      <span class="hljs-attr">messages</span>: buffer,<br>      <span class="hljs-attr">attributes</span>: <span class="hljs-number">1</span> <span class="hljs-comment">/* Use GZip compression for the payload */</span><br>    &#125;<br>  ]<br><br>  <span class="hljs-comment">// Send record to Kafka and log result/error</span><br>  producer.<span class="hljs-title function_">send</span>(record, cb)<br>&#125;<br><br><span class="hljs-keyword">let</span> times = <span class="hljs-number">0</span><br><br><span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">sendRecord</span>(&#123;<br>    <span class="hljs-attr">msg</span>: <span class="hljs-string">`this is message <span class="hljs-subst">$&#123;++times&#125;</span>!`</span><br>  &#125;, <span class="hljs-function">(<span class="hljs-params">err, data</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (err) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`err: <span class="hljs-subst">$&#123;err&#125;</span>`</span>)<br>    &#125;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`data: <span class="hljs-subst">$&#123;<span class="hljs-built_in">JSON</span>.stringify(data)&#125;</span>`</span>)<br>  &#125;)<br>&#125;, <span class="hljs-number">1000</span>)<br><br><br></code></pre></td></tr></table></figure>
+                <h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>amazon simple queue service 亚马逊提供的完全托管式消息队列服务</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li>完全托管</li>
+<li>可靠性</li>
+<li>持久性</li>
+<li>分布式，可扩展性</li>
+<li>消息队列模型</li>
+<li>消息确认机制</li>
+</ul>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>与rabbitMQ相似</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">AWS</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;aws-sdk&#x27;</span>);<br><br><span class="hljs-comment">// 设置 AWS 配置</span><br><span class="hljs-variable constant_">AWS</span>.<span class="hljs-property">config</span>.<span class="hljs-title function_">update</span>(&#123; <span class="hljs-attr">region</span>: <span class="hljs-string">&#x27;your-region&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 创建 SQS 服务对象</span><br><span class="hljs-keyword">const</span> sqs = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">AWS</span>.<span class="hljs-title function_">SQS</span>(&#123; <span class="hljs-attr">apiVersion</span>: <span class="hljs-string">&#x27;2012-11-05&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 定义要发送的消息内容</span><br><span class="hljs-keyword">const</span> params = &#123;<br>  <span class="hljs-title class_">MessageBody</span>: <span class="hljs-string">&#x27;Hello from Node.js!&#x27;</span>,<br>  <span class="hljs-title class_">QueueUrl</span>: <span class="hljs-string">&#x27;your-queue-url&#x27;</span> <span class="hljs-comment">// 替换为你的队列 URL</span><br>&#125;;<br><br><span class="hljs-comment">// 发送消息到队列</span><br>sqs.<span class="hljs-title function_">sendMessage</span>(params, <span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) &#123;<br>  <span class="hljs-keyword">if</span> (err) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Error&quot;</span>, err);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Message sent successfully&quot;</span>, data.<span class="hljs-property">MessageId</span>);<br>  &#125;<br>&#125;);<br><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Consumer.ts</span><br><span class="hljs-comment">// 设定侦听的topic，然后on message</span><br><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> kafka <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;kafka-node&#x27;</span><br><br><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> kafka.<span class="hljs-title class_">KafkaClient</span>(&#123;<span class="hljs-attr">kafkaHost</span>: <span class="hljs-string">&#x27;localhost:9092&#x27;</span>&#125;)<br><br><span class="hljs-keyword">const</span> topics = [<br>  &#123;<br>    <span class="hljs-attr">topic</span>: <span class="hljs-string">&#x27;webevents.dev&#x27;</span><br>  &#125;<br>]<br><span class="hljs-keyword">const</span> options = &#123;<br>  <span class="hljs-attr">autoCommit</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">fetchMaxWaitMs</span>: <span class="hljs-number">1000</span>,<br>  <span class="hljs-attr">fetchMaxBytes</span>: <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span><br>  <span class="hljs-comment">// encoding: &#x27;buffer&#x27;</span><br>&#125;<br><span class="hljs-comment">// &#123; autoCommit: false, fetchMaxWaitMs: 1000, fetchMaxBytes: 1024 * 1024 &#125;;</span><br><br><span class="hljs-keyword">const</span> consumer = <span class="hljs-keyword">new</span> kafka.<span class="hljs-title class_">Consumer</span>(client, topics, options)<br><br>consumer.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">message</span>) &#123;<br><br>  <span class="hljs-comment">// Read string into a buffer.</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">`[message]:==:&gt;<span class="hljs-subst">$&#123;<span class="hljs-built_in">JSON</span>.stringify(message)&#125;</span>`</span>)<br>  <span class="hljs-keyword">const</span> buf = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Buffer</span>(<span class="hljs-title class_">String</span>(message.<span class="hljs-property">value</span>), <span class="hljs-string">&#x27;binary&#x27;</span>)<br>  <span class="hljs-keyword">const</span> decodedMessage = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(buf.<span class="hljs-title function_">toString</span>())<br><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;decodedMessage: &#x27;</span>, decodedMessage)<br>&#125;)<br><br>consumer.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;error&#x27;</span>, err)<br>&#125;)<br><br>process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;SIGINT&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  consumer.<span class="hljs-title function_">close</span>(<span class="hljs-literal">true</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    process.<span class="hljs-title function_">exit</span>()<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
-
-<p>kafka的作用：<br>作为一个消息队列，又因为它能长久的保存数据，且容量理论上可以无限的大。<br>可以用于：</p>
-<ol>
-<li>流量削峰，比方说秒杀</li>
-<li>因为它是一个中间件，因此可以用于解耦</li>
-<li>他用一种异步转同步的方式保证了消息消费的顺序性，因此可以用于消除一些并发问题</li>
-</ol>
-<p>redis的发布订阅，是推的，消息存入内存，不会持久化。<br>kafka的发布订阅，是拉的，默认可持久化<br>rabbitmMQ的发布订阅，是推的，默认不持久化，可以持久化</p>
-
+<p>消费者：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">AWS</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;aws-sdk&#x27;</span>);<br><br><span class="hljs-comment">// 设置 AWS 配置</span><br><span class="hljs-variable constant_">AWS</span>.<span class="hljs-property">config</span>.<span class="hljs-title function_">update</span>(&#123; <span class="hljs-attr">region</span>: <span class="hljs-string">&#x27;your-region&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 创建 SQS 服务对象</span><br><span class="hljs-keyword">const</span> sqs = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">AWS</span>.<span class="hljs-title function_">SQS</span>(&#123; <span class="hljs-attr">apiVersion</span>: <span class="hljs-string">&#x27;2012-11-05&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 定义接收消息的参数</span><br><span class="hljs-keyword">const</span> params = &#123;<br>  <span class="hljs-title class_">QueueUrl</span>: <span class="hljs-string">&#x27;your-queue-url&#x27;</span>, <span class="hljs-comment">// 替换为你的队列 URL</span><br>  <span class="hljs-title class_">MaxNumberOfMessages</span>: <span class="hljs-number">10</span>,     <span class="hljs-comment">// 最多获取 10 条消息</span><br>  <span class="hljs-title class_">VisibilityTimeout</span>: <span class="hljs-number">30</span>,       <span class="hljs-comment">// 消息可见性超时时间（秒）</span><br>  <span class="hljs-title class_">WaitTimeSeconds</span>: <span class="hljs-number">0</span>           <span class="hljs-comment">// 等待时间（秒），设置为 0 表示立即返回</span><br>&#125;;<br><br><span class="hljs-comment">// 接收消息</span><br>sqs.<span class="hljs-title function_">receiveMessage</span>(params, <span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) &#123;<br>  <span class="hljs-keyword">if</span> (err) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Error&quot;</span>, err);<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.<span class="hljs-property">Messages</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Received messages:&quot;</span>, data.<span class="hljs-property">Messages</span>);<br><br>    <span class="hljs-comment">// 处理接收到的消息</span><br>    data.<span class="hljs-property">Messages</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">message</span> =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Message:&quot;</span>, message.<span class="hljs-property">Body</span>);<br>    &#125;);<br><br>    <span class="hljs-comment">// 删除已接收的消息</span><br>    <span class="hljs-keyword">const</span> deleteParams = &#123;<br>      <span class="hljs-title class_">QueueUrl</span>: params.<span class="hljs-property">QueueUrl</span>,<br>      <span class="hljs-title class_">ReceiptHandle</span>: data.<span class="hljs-property">Messages</span>[<span class="hljs-number">0</span>].<span class="hljs-property">ReceiptHandle</span> <span class="hljs-comment">// 删除第一条消息的句柄</span><br>    &#125;;<br>    sqs.<span class="hljs-title function_">deleteMessage</span>(deleteParams, <span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) &#123;<br>      <span class="hljs-keyword">if</span> (err) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Delete Error&quot;</span>, err);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Message Deleted&quot;</span>, data);<br>      &#125;<br>    &#125;);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;No messages available&quot;</span>);<br>  &#125;<br>&#125;);<br><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -333,34 +332,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Kafka/" class="category-chain-item">Kafka</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Kafka/" class="print-no-link">#Kafka</a>
-      
-    </div>
   
 </div>
 
@@ -370,8 +341,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>kafka概述</div>
-      <div>https://shiduoyang.github.io/2023/09/19/kafka概述/</div>
+      <div>中间件-sqs</div>
+      <div>https://shiduoyang.github.io/2024/03/29/中间件-sqs/</div>
     </div>
     <div class="license-meta">
       
@@ -383,7 +354,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年9月19日</div>
+          <div>2024年3月29日</div>
         </div>
       
       
@@ -415,18 +386,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/09/25/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" title="常见的网络攻击及防护要点">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常见的网络攻击及防护要点</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6-kafka/" title="中间件-kafka">
-                        <span class="hidden-mobile">中间件-kafka</span>
+                      <a href="/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="中间件">
+                        <span class="hidden-mobile">中间件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

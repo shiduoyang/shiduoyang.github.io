@@ -16,21 +16,21 @@
   <meta name="author" content="杨士铎">
   <meta name="keywords" content="">
   
-    <meta name="description" content="是什么amazon simple queue service 亚马逊提供的完全托管式消息队列服务 特性 完全托管 可靠性 持久性 分布式，可扩展性 消息队列模型 消息确认机制  适用场景 与rabbitMQ相似  使用方法1234567891011121314151617181920212223const AWS &#x3D; require(&amp;#x27;aws-sdk&amp;#x27;);&#x2F;&#x2F; 设置 AWS 配">
+    <meta name="description" content="loadbanlance配置nginx用upsream模块来实现负载均衡 123456789101112131415http &amp;#123;    upstream backend &amp;#123;        server 192.168.1.100:80;        server 192.168.1.101:80;    &amp;#125;    server &amp;#123;        liste">
 <meta property="og:type" content="article">
-<meta property="og:title" content="中间件-sqs">
-<meta property="og:url" content="https://shiduoyang.github.io/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6-sqs/index.html">
+<meta property="og:title" content="nginx-配置loadbalance">
+<meta property="og:url" content="https://shiduoyang.github.io/2024/03/29/nginx-%E9%85%8D%E7%BD%AEloadbalance/index.html">
 <meta property="og:site_name" content="shiduoyang.note">
-<meta property="og:description" content="是什么amazon simple queue service 亚马逊提供的完全托管式消息队列服务 特性 完全托管 可靠性 持久性 分布式，可扩展性 消息队列模型 消息确认机制  适用场景 与rabbitMQ相似  使用方法1234567891011121314151617181920212223const AWS &#x3D; require(&amp;#x27;aws-sdk&amp;#x27;);&#x2F;&#x2F; 设置 AWS 配">
+<meta property="og:description" content="loadbanlance配置nginx用upsream模块来实现负载均衡 123456789101112131415http &amp;#123;    upstream backend &amp;#123;        server 192.168.1.100:80;        server 192.168.1.101:80;    &amp;#125;    server &amp;#123;        liste">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-29T06:32:26.000Z">
-<meta property="article:modified_time" content="2024-03-29T06:36:46.510Z">
+<meta property="article:published_time" content="2024-03-29T06:37:53.000Z">
+<meta property="article:modified_time" content="2024-03-29T06:39:23.232Z">
 <meta property="article:author" content="杨士铎">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>中间件-sqs - shiduoyang.note</title>
+  <title>nginx-配置loadbalance - shiduoyang.note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="中间件-sqs"></span>
+            <span id="subtitle" data-typed-text="nginx-配置loadbalance"></span>
           
         </div>
 
@@ -236,7 +236,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-29 14:32" pubdate>
+        <time datetime="2024-03-29 14:37" pubdate>
           2024年3月29日 下午
         </time>
       </span>
@@ -248,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          219 字
         
       </span>
     
@@ -259,7 +259,7 @@
         
         
         
-          15 分钟
+          2 分钟
         
       </span>
     
@@ -304,27 +304,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">中间件-sqs</h1>
+            <h1 id="seo-header">nginx-配置loadbalance</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>amazon simple queue service 亚马逊提供的完全托管式消息队列服务</p>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
-<li>完全托管</li>
-<li>可靠性</li>
-<li>持久性</li>
-<li>分布式，可扩展性</li>
-<li>消息队列模型</li>
-<li>消息确认机制</li>
-</ul>
-<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
-<li>与rabbitMQ相似</li>
-</ul>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">AWS</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;aws-sdk&#x27;</span>);<br><br><span class="hljs-comment">// 设置 AWS 配置</span><br><span class="hljs-variable constant_">AWS</span>.<span class="hljs-property">config</span>.<span class="hljs-title function_">update</span>(&#123; <span class="hljs-attr">region</span>: <span class="hljs-string">&#x27;your-region&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 创建 SQS 服务对象</span><br><span class="hljs-keyword">const</span> sqs = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">AWS</span>.<span class="hljs-title function_">SQS</span>(&#123; <span class="hljs-attr">apiVersion</span>: <span class="hljs-string">&#x27;2012-11-05&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 定义要发送的消息内容</span><br><span class="hljs-keyword">const</span> params = &#123;<br>  <span class="hljs-title class_">MessageBody</span>: <span class="hljs-string">&#x27;Hello from Node.js!&#x27;</span>,<br>  <span class="hljs-title class_">QueueUrl</span>: <span class="hljs-string">&#x27;your-queue-url&#x27;</span> <span class="hljs-comment">// 替换为你的队列 URL</span><br>&#125;;<br><br><span class="hljs-comment">// 发送消息到队列</span><br>sqs.<span class="hljs-title function_">sendMessage</span>(params, <span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) &#123;<br>  <span class="hljs-keyword">if</span> (err) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Error&quot;</span>, err);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Message sent successfully&quot;</span>, data.<span class="hljs-property">MessageId</span>);<br>  &#125;<br>&#125;);<br><br></code></pre></td></tr></table></figure>
-
-<p>消费者：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">AWS</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;aws-sdk&#x27;</span>);<br><br><span class="hljs-comment">// 设置 AWS 配置</span><br><span class="hljs-variable constant_">AWS</span>.<span class="hljs-property">config</span>.<span class="hljs-title function_">update</span>(&#123; <span class="hljs-attr">region</span>: <span class="hljs-string">&#x27;your-region&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 创建 SQS 服务对象</span><br><span class="hljs-keyword">const</span> sqs = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">AWS</span>.<span class="hljs-title function_">SQS</span>(&#123; <span class="hljs-attr">apiVersion</span>: <span class="hljs-string">&#x27;2012-11-05&#x27;</span> &#125;);<br><br><span class="hljs-comment">// 定义接收消息的参数</span><br><span class="hljs-keyword">const</span> params = &#123;<br>  <span class="hljs-title class_">QueueUrl</span>: <span class="hljs-string">&#x27;your-queue-url&#x27;</span>, <span class="hljs-comment">// 替换为你的队列 URL</span><br>  <span class="hljs-title class_">MaxNumberOfMessages</span>: <span class="hljs-number">10</span>,     <span class="hljs-comment">// 最多获取 10 条消息</span><br>  <span class="hljs-title class_">VisibilityTimeout</span>: <span class="hljs-number">30</span>,       <span class="hljs-comment">// 消息可见性超时时间（秒）</span><br>  <span class="hljs-title class_">WaitTimeSeconds</span>: <span class="hljs-number">0</span>           <span class="hljs-comment">// 等待时间（秒），设置为 0 表示立即返回</span><br>&#125;;<br><br><span class="hljs-comment">// 接收消息</span><br>sqs.<span class="hljs-title function_">receiveMessage</span>(params, <span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) &#123;<br>  <span class="hljs-keyword">if</span> (err) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Error&quot;</span>, err);<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.<span class="hljs-property">Messages</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Received messages:&quot;</span>, data.<span class="hljs-property">Messages</span>);<br><br>    <span class="hljs-comment">// 处理接收到的消息</span><br>    data.<span class="hljs-property">Messages</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">message</span> =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Message:&quot;</span>, message.<span class="hljs-property">Body</span>);<br>    &#125;);<br><br>    <span class="hljs-comment">// 删除已接收的消息</span><br>    <span class="hljs-keyword">const</span> deleteParams = &#123;<br>      <span class="hljs-title class_">QueueUrl</span>: params.<span class="hljs-property">QueueUrl</span>,<br>      <span class="hljs-title class_">ReceiptHandle</span>: data.<span class="hljs-property">Messages</span>[<span class="hljs-number">0</span>].<span class="hljs-property">ReceiptHandle</span> <span class="hljs-comment">// 删除第一条消息的句柄</span><br>    &#125;;<br>    sqs.<span class="hljs-title function_">deleteMessage</span>(deleteParams, <span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) &#123;<br>      <span class="hljs-keyword">if</span> (err) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Delete Error&quot;</span>, err);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Message Deleted&quot;</span>, data);<br>      &#125;<br>    &#125;);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;No messages available&quot;</span>);<br>  &#125;<br>&#125;);<br><br></code></pre></td></tr></table></figure>
+                <h2 id="loadbanlance配置"><a href="#loadbanlance配置" class="headerlink" title="loadbanlance配置"></a>loadbanlance配置</h2><p>nginx用upsream模块来实现负载均衡</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs config">http &#123;<br>    upstream backend &#123;<br>        server 192.168.1.100:80;<br>        server 192.168.1.101:80;<br>    &#125;<br><br>    server &#123;<br>        listen 80;<br><br>        location / &#123;<br>            proxy_pass http://backend;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -341,8 +327,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>中间件-sqs</div>
-      <div>https://shiduoyang.github.io/2024/03/29/中间件-sqs/</div>
+      <div>nginx-配置loadbalance</div>
+      <div>https://shiduoyang.github.io/2024/03/29/nginx-配置loadbalance/</div>
     </div>
     <div class="license-meta">
       
@@ -386,18 +372,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/29/nginx-%E9%85%8D%E7%BD%AEloadbalance/" title="nginx-配置loadbalance">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">nginx-配置loadbalance</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="中间件">
-                        <span class="hidden-mobile">中间件</span>
+                      <a href="/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6-sqs/" title="中间件-sqs">
+                        <span class="hidden-mobile">中间件-sqs</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

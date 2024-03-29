@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>nginx-配置loadbalance</title>
+    <link href="/2024/03/29/nginx-%E9%85%8D%E7%BD%AEloadbalance/"/>
+    <url>/2024/03/29/nginx-%E9%85%8D%E7%BD%AEloadbalance/</url>
+    
+    <content type="html"><![CDATA[<h2 id="loadbanlance配置"><a href="#loadbanlance配置" class="headerlink" title="loadbanlance配置"></a>loadbanlance配置</h2><p>nginx用upsream模块来实现负载均衡</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs config">http &#123;<br>    upstream backend &#123;<br>        server 192.168.1.100:80;<br>        server 192.168.1.101:80;<br>    &#125;<br><br>    server &#123;<br>        listen 80;<br><br>        location / &#123;<br>            proxy_pass http://backend;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>中间件-sqs</title>
     <link href="/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6-sqs/"/>
     <url>/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6-sqs/</url>

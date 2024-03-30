@@ -70,8 +70,12 @@ tags:
    1. 类型通过实现接口定义的所有方法的形式来实现该接口，不需要通过implements显式声明
    2. 空接口可以保存任何值，因为任何值都实现了0个方法
    3. 类型断言 var i interface{} = MyStruct{"hello"}; s,ok:= i.(MyStruct); switch i.(type){case xxxx}
-   4. 
 8. 并发编程
+   1. goruntine go程 由go运行时管理的轻量级线程，由于不是直接由系统控制，因此创建和管理开销远远小于传统的线程 
+   2. channel 信道 v:= make(chan int) v <- 1  x:= <- v fmt.Println(x)
+      1. 带缓冲的信道 v:= make(chan int, 100) 仅当信道的缓冲区填满后，才阻塞
+      2. range读取信道：for i:= range v {fmt.Println(i)} 不断从v中读取数据，直至它被发送方关闭
+      3. select使得一个go程可以等待多个通信操作：select {case c <- x xxxxx case <- quit xxxx default xxx}
 9.  错误处理和异常机制
     1.  error 类型是一个内建接口
 10. 包的导入与管理

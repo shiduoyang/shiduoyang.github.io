@@ -24,7 +24,7 @@
 <meta property="og:description" content="1. 特性 静态类型：有利于类型安全 编译型：go代码直接翻译成机器码，运行速度快 并发编程：通过goruntines 和 channel，内建对并发的支持 自动垃圾回收 反射 语法简洁 函数多返回值 标准库丰富 跨平台：支持多种操作系统和架构，可以在不同的系统上编译运行  2. 优点 高性能：go的性能接近于C++ 快速开发：因语法简洁，标准库丰富，开发速度快 工程化：内置工具链，如格式化，编译">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-06T10:30:18.000Z">
-<meta property="article:modified_time" content="2024-03-29T05:19:34.374Z">
+<meta property="article:modified_time" content="2024-03-31T02:37:33.392Z">
 <meta property="article:author" content="杨士铎">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -248,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.8k 字
         
       </span>
     
@@ -259,7 +259,7 @@
         
         
         
-          13 分钟
+          16 分钟
         
       </span>
     
@@ -377,10 +377,18 @@
 <li>类型通过实现接口定义的所有方法的形式来实现该接口，不需要通过implements显式声明</li>
 <li>空接口可以保存任何值，因为任何值都实现了0个方法</li>
 <li>类型断言 var i interface{} &#x3D; MyStruct{“hello”}; s,ok:&#x3D; i.(MyStruct); switch i.(type){case xxxx}</li>
-<li></li>
 </ol>
 </li>
-<li>并发编程</li>
+<li>并发编程<ol>
+<li>goruntine go程 由go运行时管理的轻量级线程，由于不是直接由系统控制，因此创建和管理开销远远小于传统的线程 </li>
+<li>channel 信道 v:&#x3D; make(chan int) v &lt;- 1  x:&#x3D; &lt;- v fmt.Println(x)<ol>
+<li>带缓冲的信道 v:&#x3D; make(chan int, 100) 仅当信道的缓冲区填满后，才阻塞</li>
+<li>range读取信道：for i:&#x3D; range v {fmt.Println(i)} 不断从v中读取数据，直至它被发送方关闭</li>
+<li>select使得一个go程可以等待多个通信操作：select {case c &lt;- x xxxxx case &lt;- quit xxxx default xxx}</li>
+</ol>
+</li>
+</ol>
+</li>
 <li>错误处理和异常机制<ol>
 <li>error 类型是一个内建接口</li>
 </ol>
@@ -452,9 +460,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/29/%E4%B8%AD%E9%97%B4%E4%BB%B6/" title="中间件">
+                      <a href="/2024/03/06/%E8%B7%9F%E6%88%91%E5%AD%A6golang-2-web%E6%A1%86%E6%9E%B6-gin/" title="跟我学golang-2-web框架-gin">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">中间件</span>
+                        <span class="hidden-mobile">跟我学golang-2-web框架-gin</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

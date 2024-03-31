@@ -253,6 +253,229 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/02/18/dynaomdb%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E8%B6%85%E8%BF%87400kb%E7%9A%84%E9%A1%B9/" target="_self">
+          dynaomdb如何存储超过400kb的项
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/02/18/dynaomdb%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E8%B6%85%E8%BF%87400kb%E7%9A%84%E9%A1%B9/" target="_self">
+        <div>
+          将数据拆分成多个项， 为每个部分创建唯一标识符，确保能够关联和重组数据 将大对象，拆到其他系统中，如S3，然后在dynamodb中存储数据的引用地址
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-02-18 18:45" pubdate>
+              2024-02-18
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/20/mysql-%E6%80%A7%E8%83%BD/" target="_self">
+          mysql-性能
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/20/mysql-%E6%80%A7%E8%83%BD/" target="_self">
+        <div>
+          
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-20 19:25" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/20/mysql-%E9%94%81/" target="_self">
+          mysql-锁
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/20/mysql-%E9%94%81/" target="_self">
+        <div>
+          mysql innodb的锁，是加在了索引上
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-20 16:42" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/17/mysql%E5%A4%A7%E8%A1%A8%E5%A6%82%E4%BD%95dump/" target="_self">
+          mysql大表如何dump
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/17/mysql%E5%A4%A7%E8%A1%A8%E5%A6%82%E4%BD%95dump/" target="_self">
+        <div>
+          一：思路 不要锁表 谨防数据一下全部入内存 在非访问高峰期进行 增加dump速度  二：可选方案 使用--single-transaction选项。启动事务来保证数据的一致性，同时不会锁表1mysqldump --single-transaction -u 用户名 -p 数据库名 表名 &gt; 大表备份.sql 使用--quick选项，逐行获取数据，而不是将整个结果集加载到内存中。1mysqld
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-17 17:29" pubdate>
+              2024-01-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mysql/" class="category-chain-item">mysql</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql/">#mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/17/bash-%E5%AE%89%E8%A3%85stablediffusion-mac/" target="_self">
+          bash-安装stablediffusion
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/17/bash-%E5%AE%89%E8%A3%85stablediffusion-mac/" target="_self">
+        <div>
+          12345678cd/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;brew install cmake protobuf rust python@3.10 git wgetcd ~/Documentsmkdir stabledfcd s
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-17 11:04" pubdate>
+              2024-01-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/bash/" class="category-chain-item">bash</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/stablediffusion/">#stablediffusion</a>
+            
+              <a href="/tags/bash/">#bash</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/01/17/golang-%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0-1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_self">
           golang-自学笔记-1-基本语法和数据类型
         </a>
@@ -459,201 +682,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2023-11-09 16:51" pubdate>
               2023-11-09
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/11/09/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-k8s/" target="_self">
-          服务端面试-k8s
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/09/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-k8s/" target="_self">
-        <div>
-          什么是etcd etcd的应用场景 什么是kubernetes kubernetes与docker的关系 kubernetes如何实现集群管理 kubernetes的优势，适用场景及特点 kubernetes的缺点和当前的不足 kubernetes基础概念有哪些 kubernetes集群相关组件有哪些 kube-proxy的作用 kubernetes创建一个pod的主要流程是什么 kuberne
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-11-09 16:51" pubdate>
-              2023-11-09
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-CI-CD/" target="_self">
-          服务端面试-CI-CD
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-CI-CD/" target="_self">
-        <div>
-          CI&#x2F;CD是什么？持续集成&#x2F;持续交付  常见的CI&#x2F;CD工具有哪些  Jenkins Gitlab     docker 容器化工具 Jenkins 持续集成工具 jira敏捷的团队协作工具 Prometheus 监控工具 Selenium&#x2F;jmeter –连续测试（CT）工具 argocd k8s的gitops工具。GitOps 是一种机制，可以从最后已
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-11-08 17:43" pubdate>
-              2023-11-08
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%8D%81-nginx/" target="_self">
-          服务端面试十:nginx
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%8D%81-nginx/" target="_self">
-        <div>
-          nginx使用的是事件模型，关键词：epoll IO多路复用 动静分离 负载均衡算法：  轮询 权重 IPhash fair 第三方插件，可根据页面大小和加载时间长短智能的进行负载均衡，响应时间短的优先分配 url hash，相同url的分配到同一个服务器
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-11-08 17:37" pubdate>
-              2023-11-08
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%BA%8C-mongodb/" target="_self">
-          服务端面试二:mongodb
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/08/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%BA%8C-mongodb/" target="_self">
-        <div>
-          问题列表及答案 Mongodb的架构  mongodb server 存储引擎   Mongodb支持的存储引擎 mongodb采用了可插拔的存储引擎API，允许第三方为mongodb开发存储引擎，存储引擎有如下几种：  MMAPV1 刚出来的时候用的存储引擎，4.x版本之后不再使用 WiredTiger 3.2之后，默认存储引擎编程WiredTiger In-Memory 存储引擎，将数据不再放
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-11-08 15:43" pubdate>
-              2023-11-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Mongodb/" class="category-chain-item">Mongodb</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Mongodb/">#Mongodb</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/11/02/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-MySQL/" target="_self">
-          服务端面试一-MySQL
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/02/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%9D%A2%E8%AF%95-MySQL/" target="_self">
-        <div>
-          bin日志与redolog的区别：  bin log 会记录所有与数据库有关的日志记录，包括 InnoDB、MyISAM 等存储引擎的日志，而 redo log 只记 InnoDB 存储引擎的日志。 记录的内容不同，bin log 记录的是关于一个事务的具体操作内容，即该日志是逻辑日志。而 redo log 记录的是关于每个页（Page）的更改的物理情况。 写入的时间不同，bin log 仅在事务
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-11-02 17:03" pubdate>
-              2023-11-02
             </time>
           </div>
         
